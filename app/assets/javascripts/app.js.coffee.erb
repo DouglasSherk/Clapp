@@ -1,0 +1,18 @@
+<% environment.context_class.instance_eval { include AngularRoutingHelper } %>
+
+window.App = angular.module('Clapp', ['ngResource', 'ngRoute'])
+
+App.config ['$routeProvider', ($routeProvider) ->
+  <% getAllAngularRoutes().each do |route| %>
+  $routeProvider.when '<%= angularRouteAppPath(route).sub '#', '' %>',
+    templateUrl: '<%= angularRouteFilePath(route) %>',
+    reloadOnSearch: false,
+  <% end %>
+  $routeProvider.otherwise
+    templateUrl: '<%= angularRouteFilePath(templates_path) %>',
+    reloadOnSearch: false,
+]
+
+App.run ['$rootScope', '$location', \
+         ($rootScope, $location) ->
+]

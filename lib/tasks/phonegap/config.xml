@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<widget xmlns = "http://www.w3.org/ns/widgets"
+  xmlns:gap = "http://phonegap.com/ns/1.0"
+  id        = "com.teammatthewminer.clapp"
+  versionCode="10"
+  version   = "1.0.0">
+
+  <!-- versionCode is optional and Android only -->
+
+  <name>Clapp</name>
+
+  <description>
+    Clapp
+  </description>
+
+  <author href="http://teammatthewminer-clapp.herokuapp.com" email="doug@sherk.me">
+    Team Matthew Miner
+  </author>
+
+  <feature name="Camera">
+    <param name="android-package" value="org.apache.cordova.CameraLauncher" />
+    <param name="ios-package" value="CDVCamera" />
+  </feature>
+  <feature name="NetworkStatus">
+    <param name="android-package" value="org.apache.cordova.NetworkManager" />
+    <param name="ios-package" value="CDVConnection" />
+  </feature>
+
+  <plugin name="SQLitePlugin" value="org.pgsqlite.SQLitePlugin"/>
+
+</widget>

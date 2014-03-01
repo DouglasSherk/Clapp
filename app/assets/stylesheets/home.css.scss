@@ -1,0 +1,54 @@
+body {
+	padding-top: 5em;
+}
+
+.next {
+	border: 1px solid #ccc;
+	margin-bottom: 3em;
+	width: 75%;
+	margin-left: auto;
+	margin-right: auto;
+	display: block;
+	padding-top: 2em;
+	padding-bottom: 2em;
+}
+
+.garbage {
+	background: #F2F4F4;
+	border-left: 10px solid black;
+	height: 5em;
+	padding-top: 1.5em;
+	padding-left: 2em; 
+	font-size: 1.25em;
+	margin-top: 0.5em;
+}
+
+.hazard {
+	background: #F2F4F4;
+	border-left: 10px solid orange;
+	height: 5em;
+	padding-top: 1.5em;
+	padding-left: 2em; 
+	font-size: 1.25em;
+	margin-top: 0.5em;
+}
+
+.recycle {
+	background: #F2F4F4;
+	border-left: 10px solid blue;
+	height: 5em;
+	padding-top: 1.5em;
+	padding-left: 2em; 
+	font-size: 1.25em;
+	margin-top: 0.5em;
+}
+
+.yard {
+	background: #F2F4F4;
+	border-left: 10px solid green;
+	height: 5em;
+	padding-top: 1.5em;
+	padding-left: 2em; 
+	font-size: 1.25em;
+	margin-top: 0.5em;
+}

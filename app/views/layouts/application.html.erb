@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html data-ng-app="Clapp">
+<head>
+  <title>Clapp</title>
+
+  <% if Rails.env.phonegap? || Rails.env.phonegap_staging? %>
+    <% # XXX: These will have already been minified by the PhoneGap build path. %>
+    <link href="css/application.css" media="all" rel="stylesheet" />
+    <script src="js/application.js"></script>
+    <script src="cordova.js"></script>
+  <% else %>
+    <%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true %>
+    <%= csrf_meta_tags %>
+    <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  <% end %>
+  <script>
+    if (navigator.app) {
+      navigator.app.clearCache();
+    }
+  </script>
+
+  <% if Rails.env.phonegap? || Rails.env.phonegap_staging? %>
+    <% phonegapAllTemplates.each do |path, content| %>
+      <script type="text/ng-template" id="<%= path %>">
+       <%= raw content %>
+      </script>
+    <% end %>
+  <% end %>
+
+  <meta name="HandheldFriendly" content="true" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <link rel="apple-touch-icon-precomposed" sizes="114x114" href="touch-icons/apple-touch-icon-114x114.png">
+  <link rel="apple-touch-icon-precomposed" sizes="72x72" href="touch-icons/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon-precomposed" sizes="57x57" href="touch-icons/apple-touch-icon-57x57.png">
+</head>
+<body>
+  <div class="content">
+<!--
+        <ul class="nav navbar-nav" ng-repeat="menuItem in menuItems">
+          <li ng-class="{'active': isActiveMenu(menuItem.link)}">
+            <a href="#{{ menuItem.link }}">{{ menuItem.name }}</a>
+          </li>
+        </ul>
+-->
+    <header class="bar bar-nav">
+      <a class="btn pull-left">
+        Left
+      </a>
+      <h1 class="title">Clapp</h1>
+    </header>
+
+    <div id="view" data-ng-view="">
+    </div>
+  </div>
+</body>
+</html>
