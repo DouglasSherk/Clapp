@@ -48,9 +48,6 @@ gem 'rubyzip'
 # Uncomment if you're Parth
 gem 'therubyracer'
 
-# Jquery plotting plugin
-gem 'jqplot-rails'
-
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
