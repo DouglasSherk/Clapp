@@ -1,13 +1,42 @@
-/**
- * ==================================
- * Ratchet v1.0.0
+/*
+ * =====================================================
+ * Ratchet v2.0.0
+ * Copyright 2014 Connor Sears
+ * Licensed under http://www.opensource.org/licenses/MIT
+ *
+ * V2.0.0 designed by @connors.
+ * =====================================================
+ */
+/* ----------------------------------
+ * MODAL v2.0.0
  * Licensed under The MIT License
  * http://opensource.org/licenses/MIT
- * ==================================
- */
+ * ---------------------------------- */
+
+!function () {
+  var findModals = function (target) {
+    var i, modals = document.querySelectorAll('a');
+    for (; target && target !== document; target = target.parentNode) {
+      for (i = modals.length; i--;) { if (modals[i] === target) return target; }
+    }
+  };
+
+  var getModal = function (event) {
+    var modalToggle = findModals(event.target);
+    if (modalToggle && modalToggle.hash) return document.querySelector(modalToggle.hash);
+  };
+
+  window.addEventListener('touchend', function (event) {
+    var modal = getModal(event);
+    if (modal) {
+      if (modal && modal.classList.contains('modal')) modal.classList.toggle('active');
+      event.preventDefault(); // prevents rewriting url (apps can still use hash values in url)
+    }
+  });
+}();
 
 /* ----------------------------------
- * POPOVER v1.0.0
+ * POPOVER v2.0.0
  * Licensed under The MIT License
  * http://opensource.org/licenses/MIT
  * ---------------------------------- */
@@ -24,7 +53,6 @@
   };
 
   var onPopoverHidden = function () {
-    document.body.removeChild(backdrop);
     popover.style.display = 'none';
     popover.removeEventListener('webkitTransitionEnd', onPopoverHidden);
   }
@@ -37,6 +65,7 @@
     element.addEventListener('touchend', function () {
       popover.addEventListener('webkitTransitionEnd', onPopoverHidden);
       popover.classList.remove('visible');
+      popover.parentNode.removeChild(backdrop);
     });
 
     return element;
@@ -45,16 +74,23 @@
   var getPopover = function (e) {
     var anchor = findPopovers(e.target);
 
-    if (!anchor || !anchor.hash) return;
+    if (!anchor || !anchor.hash || (anchor.hash.indexOf("/") > 0)) return;
 
-    popover = document.querySelector(anchor.hash);
+    try {
+      popover = document.querySelector(anchor.hash);
+    }
+    catch (error) {
+       popover = null;
+    }
+
+    if (popover == null) return;
 
     if (!popover || !popover.classList.contains('popover')) return;
 
     return popover;
   }
 
-  window.addEventListener('touchend', function (e) {
+  var showHidePopover = function (e) {
     var popover = getPopover(e);
 
     if (!popover) return;
@@ -64,13 +100,15 @@
     popover.classList.add('visible');
 
     popover.parentNode.appendChild(backdrop);
-  });
+  };
 
-  window.addEventListener('click', function (e) { if (getPopover(e)) e.preventDefault(); });
+  window.addEventListener('touchend', showHidePopover);
+  window.addEventListener('click', showHidePopover);
 
 }();
+
 /* ----------------------------------
- * PUSH v1.0.0
+ * PUSH v2.0.0
  * Licensed under The MIT License
  * inspired by chris's jquery.pjax.js
  * http://opensource.org/licenses/MIT
@@ -93,12 +131,13 @@
     'slide-out' : 'slide-in',
     'fade'      : 'fade'
   };
+  
   var bars = {
     bartab             : '.bar-tab',
-    bartitle           : '.bar-title',
+    barnav             : '.bar-nav',
     barfooter          : '.bar-footer',
     barheadersecondary : '.bar-header-secondary'
-  }
+  };
 
   var cacheReplace = function (data, updates) {
     PUSH.id = data.id;
@@ -356,9 +395,9 @@
       }
 
       if (/slide/.test(transition)) {
-        swap.classList.add(enter ? 'right' : 'left');
-        swap.classList.add('slide');
-        container.classList.add('slide');
+        swap.classList.add('sliding-in', enter ? 'right' : 'left');
+        swap.classList.add('sliding');
+        container.classList.add('sliding');
       }
 
       container.parentNode.insertBefore(swap, container);
@@ -395,7 +434,7 @@
 
       function slideEnd() {
         swap.removeEventListener('webkitTransitionEnd', slideEnd);
-        swap.classList.remove('slide');
+        swap.classList.remove('sliding', 'sliding-in');
         swap.classList.remove(swapDirection);
         container.parentNode.removeChild(container);
         complete && complete();
@@ -484,55 +523,59 @@
   window.addEventListener('touchend', touchend);
   window.addEventListener('click', function (e) { if (getTarget(e)) e.preventDefault(); });
   window.addEventListener('popstate', popstate);
+  window.PUSH = PUSH;
 
-}();/* ----------------------------------
- * TABS v1.0.0
+}();
+
+/* ----------------------------------
+ * Segmented controls v2.0.0
  * Licensed under The MIT License
  * http://opensource.org/licenses/MIT
  * ---------------------------------- */
 
 !function () {
   var getTarget = function (target) {
-    var i, popovers = document.querySelectorAll('.segmented-controller li a');
+    var i, segmentedControls = document.querySelectorAll('.segmented-control .control-item');
     for (; target && target !== document; target = target.parentNode) {
-      for (i = popovers.length; i--;) { if (popovers[i] === target) return target; }
+      for (i = segmentedControls.length; i--;) { if (segmentedControls[i] === target) return target; }
     }
   };
 
   window.addEventListener("touchend", function (e) {
     var activeTab;
-    var activeBody;
+    var activeBodies;
     var targetBody;
-    var targetTab;
+    var targetTab     = getTarget(e.target);
     var className     = 'active';
     var classSelector = '.' + className;
-    var targetAnchor  = getTarget(e.target);
 
-    if (!targetAnchor) return;
+    if (!targetTab) return;
 
-    targetTab = targetAnchor.parentNode;
     activeTab = targetTab.parentNode.querySelector(classSelector);
 
     if (activeTab) activeTab.classList.remove(className);
 
     targetTab.classList.add(className);
 
-    if (!targetAnchor.hash) return;
+    if (!targetTab.hash) return;
 
-    targetBody = document.querySelector(targetAnchor.hash);
+    targetBody = document.querySelector(targetTab.hash);
 
     if (!targetBody) return;
 
-    activeBody = targetBody.parentNode.querySelector(classSelector);
+    activeBodies = targetBody.parentNode.querySelectorAll(classSelector);
 
-    if (activeBody) activeBody.classList.remove(className);
+    for (var i = 0; i < activeBodies.length; i++) {
+      activeBodies[i].classList.remove(className);
+    }
 
-    targetBody.classList.add(className)
+    targetBody.classList.add(className);
   });
 
   window.addEventListener('click', function (e) { if (getTarget(e.target)) e.preventDefault(); });
-}();/* ----------------------------------
- * SLIDER v1.0.0
+}();
+/* ----------------------------------
+ * SLIDER v2.0.0
  * Licensed under The MIT License
  * Adapted from Brad Birdsall's swipe
  * http://opensource.org/licenses/MIT
@@ -555,7 +598,7 @@
   var scrollableArea;
 
   var getSlider = function (target) {
-    var i, sliders = document.querySelectorAll('.slider ul');
+    var i, sliders = document.querySelectorAll('.slider > .slide-group');
     for (; target && target !== document; target = target.parentNode) {
       for (i = sliders.length; i--;) { if (sliders[i] === target) return target; }
     }
@@ -579,7 +622,7 @@
 
     if (!slider) return;
 
-    var firstItem  = slider.querySelector('li');
+    var firstItem  = slider.querySelector('.slide');
 
     scrollableArea = firstItem.offsetWidth * slider.children.length;
     isScrolling    = undefined;
@@ -589,6 +632,8 @@
     startTime      = +new Date;
     pageX          = e.touches[0].pageX;
     pageY          = e.touches[0].pageY;
+    deltaX         = 0;
+    deltaY         = 0;
 
     setSlideNumber(0);
 
@@ -645,8 +690,9 @@
   window.addEventListener('touchend', onTouchEnd);
 
 }();
+
 /* ----------------------------------
- * TOGGLE v1.0.0
+ * TOGGLE v2.0.0
  * Licensed under The MIT License
  * http://opensource.org/licenses/MIT
  * ---------------------------------- */
@@ -673,15 +719,12 @@
     if (!toggle) return;
 
     var handle      = toggle.querySelector('.toggle-handle');
-    var toggleWidth = toggle.offsetWidth;
-    var handleWidth = handle.offsetWidth;
-    var offset      = toggle.classList.contains('active') ? toggleWidth - handleWidth : 0;
+    var toggleWidth = toggle.clientWidth;
+    var handleWidth = handle.clientWidth;
+    var offset      = toggle.classList.contains('active') ? (toggleWidth - handleWidth) : 0;
 
     start     = { pageX : e.touches[0].pageX - offset, pageY : e.touches[0].pageY };
     touchMove = false;
-
-    // todo: probably should be moved to the css
-    toggle.style['-webkit-transition-duration'] = 0;
   });
 
   window.addEventListener('touchmove', function (e) {
@@ -693,8 +736,8 @@
 
     var handle      = toggle.querySelector('.toggle-handle');
     var current     = e.touches[0];
-    var toggleWidth = toggle.offsetWidth;
-    var handleWidth = handle.offsetWidth;
+    var toggleWidth = toggle.clientWidth;
+    var handleWidth = handle.clientWidth;
     var offset      = toggleWidth - handleWidth;
 
     touchMove = true;
@@ -716,9 +759,9 @@
     if (!toggle) return;
 
     var handle      = toggle.querySelector('.toggle-handle');
-    var toggleWidth = toggle.offsetWidth;
-    var handleWidth = handle.offsetWidth;
-    var offset      = toggleWidth - handleWidth;
+    var toggleWidth = toggle.clientWidth;
+    var handleWidth = handle.clientWidth;
+    var offset      = (toggleWidth - handleWidth);
     var slideOn     = (!touchMove && !toggle.classList.contains('active')) || (touchMove && (distanceX > (toggleWidth/2 - handleWidth/2)));
 
     if (slideOn) handle.style.webkitTransform = 'translate3d(' + offset + 'px,0,0)';
