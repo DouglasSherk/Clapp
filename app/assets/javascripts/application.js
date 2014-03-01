@@ -15,6 +15,8 @@
 //= require angular-route
 //= require jquery
 //= require jquery_ujs
+//= require jqplot
+//= require jqplot/plugins/pieRenderer
 //= require app
 //= require ratchet
 //= require_tree .
