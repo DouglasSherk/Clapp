@@ -11,6 +11,98 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 0) do
+ActiveRecord::Schema.define(version: 20140301221246) do
+
+  create_table "donees", force: true do |t|
+    t.string  "bn1"
+    t.string  "fpe"
+    t.integer "n"
+    t.string  "bn2"
+    t.string  "name"
+    t.string  "associated"
+    t.string  "city"
+    t.string  "province"
+    t.decimal "totalgifts",      precision: 14, scale: 2
+    t.decimal "giftsinkind",     precision: 14, scale: 2
+    t.decimal "designatedgifts", precision: 14, scale: 2
+  end
+
+  create_table "financials", force: true do |t|
+    t.string  "bn"
+    t.string  "fpe"
+    t.string  "form"
+    t.string  "f4020"
+    t.string  "f4050"
+    t.decimal "f4100", precision: 14, scale: 2
+    t.decimal "f4110", precision: 14, scale: 2
+    t.decimal "f4120", precision: 14, scale: 2
+    t.decimal "f4130", precision: 14, scale: 2
+    t.decimal "f4140", precision: 14, scale: 2
+    t.decimal "f4150", precision: 14, scale: 2
+    t.decimal "f4155", precision: 14, scale: 2
+    t.decimal "f4160", precision: 14, scale: 2
+    t.decimal "f4165", precision: 14, scale: 2
+    t.decimal "f4166", precision: 14, scale: 2
+    t.decimal "f4170", precision: 14, scale: 2
+    t.decimal "f4180", precision: 14, scale: 2
+    t.decimal "f4200", precision: 14, scale: 2
+    t.decimal "f4250", precision: 14, scale: 2
+    t.decimal "f4300", precision: 14, scale: 2
+    t.decimal "f4310", precision: 14, scale: 2
+    t.decimal "f4320", precision: 14, scale: 2
+    t.decimal "f4330", precision: 14, scale: 2
+    t.decimal "f4350", precision: 14, scale: 2
+    t.string  "f4400"
+    t.string  "f4490"
+    t.decimal "f4500", precision: 14, scale: 2
+    t.decimal "f5610", precision: 14, scale: 2
+    t.decimal "f4505", precision: 14, scale: 2
+    t.decimal "f4510", precision: 14, scale: 2
+    t.decimal "f4530", precision: 14, scale: 2
+    t.decimal "f4540", precision: 14, scale: 2
+    t.decimal "f4550", precision: 14, scale: 2
+    t.decimal "f4560", precision: 14, scale: 2
+    t.string  "f4565"
+    t.decimal "f4570", precision: 14, scale: 2
+    t.decimal "f4575", precision: 14, scale: 2
+    t.decimal "f4580", precision: 14, scale: 2
+    t.decimal "f4590", precision: 14, scale: 2
+    t.decimal "f4600", precision: 14, scale: 2
+    t.decimal "f4610", precision: 14, scale: 2
+    t.decimal "f4620", precision: 14, scale: 2
+    t.decimal "f4630", precision: 14, scale: 2
+    t.decimal "f4640", precision: 14, scale: 2
+    t.decimal "f4650", precision: 14, scale: 2
+    t.string  "f4655"
+    t.decimal "f4700", precision: 14, scale: 2
+    t.decimal "f4800", precision: 14, scale: 2
+    t.decimal "f4810", precision: 14, scale: 2
+    t.decimal "f4820", precision: 14, scale: 2
+    t.decimal "f4830", precision: 14, scale: 2
+    t.decimal "f4840", precision: 14, scale: 2
+    t.decimal "f4850", precision: 14, scale: 2
+    t.decimal "f4860", precision: 14, scale: 2
+    t.decimal "f4870", precision: 14, scale: 2
+    t.decimal "f4880", precision: 14, scale: 2
+    t.decimal "f4890", precision: 14, scale: 2
+    t.decimal "f4891", precision: 14, scale: 2
+    t.decimal "f4900", precision: 14, scale: 2
+    t.decimal "f4910", precision: 14, scale: 2
+    t.decimal "f4920", precision: 14, scale: 2
+    t.string  "f4930"
+    t.decimal "f4950", precision: 14, scale: 2
+    t.decimal "f5000", precision: 14, scale: 2
+    t.decimal "f5010", precision: 14, scale: 2
+    t.decimal "f5020", precision: 14, scale: 2
+    t.decimal "f5030", precision: 14, scale: 2
+    t.decimal "f5040", precision: 14, scale: 2
+    t.decimal "f5050", precision: 14, scale: 2
+    t.decimal "f5100", precision: 14, scale: 2
+    t.decimal "f5500", precision: 14, scale: 2
+    t.decimal "f5510", precision: 14, scale: 2
+    t.decimal "f5750", precision: 14, scale: 2
+    t.decimal "f5900", precision: 14, scale: 2
+    t.decimal "f5910", precision: 14, scale: 2
+  end
 
 end

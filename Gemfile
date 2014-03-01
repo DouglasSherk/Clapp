@@ -48,6 +48,8 @@ gem 'rubyzip'
 # Uncomment if you're Parth
 gem 'therubyracer'
 
+gem 'squeel'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
@@ -59,3 +61,4 @@ gem 'therubyracer'
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
+
