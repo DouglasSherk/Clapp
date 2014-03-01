@@ -45,6 +45,9 @@ gem 'angularjs-rails'
 
 gem 'rubyzip'
 
+# Uncomment if you're Parth
+# gem 'therubyracer'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
