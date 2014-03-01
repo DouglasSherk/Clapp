@@ -11,7 +11,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140301221246) do
+ActiveRecord::Schema.define(version: 20140301231844) do
+
+  create_table "compensation_infos", force: true do |t|
+    t.string  "bn"
+    t.string  "fpe"
+    t.integer "f300"
+    t.integer "f305"
+    t.integer "f310"
+    t.integer "f315"
+    t.integer "f320"
+    t.integer "f325"
+    t.integer "f330"
+    t.integer "f335"
+    t.integer "f340"
+    t.integer "f345"
+    t.integer "f370"
+    t.decimal "f380", precision: 14, scale: 2
+    t.decimal "f390", precision: 14, scale: 2
+  end
 
   create_table "donees", force: true do |t|
     t.string  "bn1"

@@ -6,11 +6,10 @@ Clapp::Application.routes.draw do
   end
 
   scope :api do
-  	#scope :charity do
-  	#	get ':bn'    => 'charity#search', :as => 'api_charity_search'
-  	#	get 'search' => 'charity#search', :as => 'api_charity_search'
-  	#end
-    get 'search_by_name' => 'api#search_by_name', :as => 'api_search_by_name'
+  	scope :charity do
+  		get 'search' => 'api/charity#search', :as => 'api_charity_search'
+  		get ':bn'    => 'api/charity#show',   :as => 'api_charity_show'
+  	end
     get 'get_chart'      => 'api#get_chart',      :as => 'api_get_chart'
   end
 

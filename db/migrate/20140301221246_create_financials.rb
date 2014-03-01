@@ -89,5 +89,3 @@ class CreateFinancials < ActiveRecord::Migration
     drop_table :financials
   end
 end
-
-# BN  FPE 300 305 310 315 320 325 330 335 340 345 370 380 390
