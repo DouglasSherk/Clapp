@@ -2,4 +2,9 @@
   <form>
     <input type="search" placeholder="Find a charity" ng-model="search">
   </form>
+  <ul class="table-view">
+    <li class="table-view-cell" ng-repeat="result in results">
+      <a class="push-right">{{ result.name }}</a>
+    </li>
+  </ul>
 </div>
