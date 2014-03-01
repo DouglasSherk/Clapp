@@ -1,4 +1,4 @@
-require 'CSV'
+require 'csv'
 
 class CreateDonees < ActiveRecord::Migration
   def up
