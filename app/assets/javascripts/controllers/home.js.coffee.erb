@@ -1,0 +1,13 @@
+<% environment.context_class.instance_eval { include ActionView::Helpers } %>
+<% environment.context_class.instance_eval { include HostHelper } %>
+
+App.controller 'HomeCtrl', ['$scope', '$location', '$timeout', '$http', \
+                            ($scope, $location, $timeout, $http) ->
+  $scope.$watch 'search', ->
+    $http({method: 'GET', url: '<%= angularApiPath(root_path) %>'}).
+      success((data, status, headers, config) ->
+        alert 'success!'
+      ).error((data, status, headers, config) ->
+        alert 'failure :('
+      )
+]
