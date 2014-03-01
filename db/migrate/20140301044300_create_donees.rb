@@ -17,7 +17,6 @@ class CreateDonees < ActiveRecord::Migration
     end
     fields = 'bn1,fpe,n,bn2,name,associated,city,province,totalgifts,giftsinkind,designatedgifts'.split(',')
     CSV.foreach('db/donee.csv', {:encoding=>'windows-1251'}) do |row|
-      print Hash[fields.zip(row)]
       Donee.create(Hash[fields.zip(row)])
     end
   end
