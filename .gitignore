@@ -24,3 +24,6 @@
 /public/assets
 
 **/.sass-cache
+
+# ignore vim swap
+*.swp
