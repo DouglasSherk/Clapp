@@ -5,7 +5,7 @@ class Donee < ActiveRecord::Base
     else
       where{name =~ "%#{in_name}%"}.order(totalgifts: :desc).limit(in_n+1)
     end).map! do |row|
-    	row.name = row.name.titleize if /^[A-Z0-9_ -]+$/ =~ row.name
+    	row.name = row.name.titleize if /^[A-Z0-9_ -]+$/ =~ row.name and row.name.include? " "
     	row
     end
   end
