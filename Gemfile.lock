@@ -144,5 +144,6 @@ DEPENDENCIES
   sass-rails (~> 4.0.1)
   sdoc
   sqlite3
+  therubyracer
   turbolinks
   uglifier (>= 2.4.0)
