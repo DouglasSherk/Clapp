@@ -11,20 +11,6 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140301044300) do
-
-  create_table "donees", force: true do |t|
-    t.string  "bn1"
-    t.string  "fpe"
-    t.integer "n"
-    t.string  "bn2"
-    t.string  "name"
-    t.string  "associated"
-    t.string  "city"
-    t.string  "province"
-    t.decimal "totalgifts",      precision: 14, scale: 2
-    t.decimal "giftsinkind",     precision: 14, scale: 2
-    t.decimal "designatedgifts", precision: 14, scale: 2
-  end
+ActiveRecord::Schema.define(version: 0) do
 
 end
