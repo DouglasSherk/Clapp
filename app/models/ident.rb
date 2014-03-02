@@ -1,6 +1,6 @@
 class Ident < ActiveRecord::Base
   belongs_to :category
-  has_one :financials
+  has_one :financials, :foreign_key => :bn, :primary_key => :bn
 
   def self.search_by_name(name, n, start=nil)
     unless start.nil?
@@ -8,9 +8,6 @@ class Ident < ActiveRecord::Base
     else
       where{legalname =~ "%#{name}%"}.limit(n+1)
     end
-  end
-  def self.count_by_category(catid)
-    where{category == catid}.count()
   end
   def display_name
     if /^[A-Z0-9_\/ -]+$/ =~ legalname and legalname.include? ' '
