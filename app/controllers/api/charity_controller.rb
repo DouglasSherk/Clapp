@@ -9,6 +9,12 @@ class Api::CharityController < Api::ApiController
     donee = Donee.find_by bn2:bn
     financials = Financials.find_by bn:bn
     compensation = CompensationInfo.find_by bn:bn
+
+    chart_data   = [financials[:f5000], financials[:f5010], financials[:f5020], financials[:f5030], financials[:f5040]]
+    chart_labels = ["Charitable Programs", "Mngmt./Admin.", "Fundraising", "Political Activity", "Other"]
+    chart = GChart.pie :data   => chart_data,
+                       :legend => chart_labels
+    
     msg = {
         :status => :ok,
         :general => {
