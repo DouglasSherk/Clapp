@@ -17,7 +17,7 @@ class Api::CharityController < Api::ApiController
       return render :json => { :status => :notfound }
     end
 
-    category     = Category.find_by(ident.category)
+    category     = Category.find_by catid:ident.category
     donee        = Donee.find_by bn2:bn
     financials   = Financials.find_by bn:bn
     compensation = CompensationInfo.find_by bn:bn
@@ -39,16 +39,17 @@ class Api::CharityController < Api::ApiController
     functional_cost_allocation = (exp_admin + exp_fundraising) / exp_total
     fundraising_efficiency = contributions / exp_fundraising
     high_salaries =
-      (compensation.f320||0) + (compensation.f325||0) + (compensation.f330||0) +
+      (compensation.f325||0) + (compensation.f330||0) +
       (compensation.f335||0) + (compensation.f340||0) + (compensation.f345||0)
     very_high_salaries = (compensation.f340||0) + (compensation.f345||0)
     quality_score =
       (functional_cost_allocation < 0.045 ? 1 : 0) +
+      (functional_cost_allocation < 0.025 ? 1 : 0) +
       (fundraising_efficiency.nil? || fundraising_efficiency > 1 ? 1 : 0) +
+      (fundraising_efficiency.nil? || fundraising_efficiency > 3 ? 1 : 0) +
       (high_salaries == 0 ? 1 : 0) +
-      (very_high_salaries == 0 ? 1 : 0) +
-      1
-    letter_grade = ("F".ord - quality_score).chr
+      (very_high_salaries == 0 ? 1 : 0)
+    letter_grade = ("F".ord - (5*quality_score/6).to_i).chr
    
     # Financial breakdown chart
     chart_data   = [exp_charity, exp_admin, exp_fundraising, exp_political, exp_other]
