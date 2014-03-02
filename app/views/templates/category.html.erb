@@ -7,7 +7,7 @@
       Back
     </a>
 
-    <h1 class="title" ng-if="categoryName" style="font-weight: normal; font-size: 16px; text-overflow: ellipsis;">{{ categoryName }}</h1>
+    <h1 class="title" ng-if="categoryName" style="font-weight: normal; font-size: 16px; text-overflow: ellipsis;">{{ categoryName | truncate:25 }}</h1>
   </div>
 
   <div class="content">
