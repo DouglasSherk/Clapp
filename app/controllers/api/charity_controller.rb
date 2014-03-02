@@ -3,8 +3,7 @@ class Api::CharityController < Api::ApiController
     bn = params[:bn]
     ident = Ident.find_by bn:bn
     if ident.nil?
-      render :json => { :status => :notfound }
-      pass
+      return render :json => { :status => :notfound }
     end
 
     donee = Donee.find_by bn2:bn
