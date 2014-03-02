@@ -2,11 +2,14 @@
   <%= render :partial => "templates/charitynav", :locals => {:tab => "description"} %>
 
   <div class="content">
-    <div class="content-padded" ng-if="charityData">
-      <p ng-if="charityData.general.website">
-        <a href="{{ charityData.general.website }}">Website</a>
-      </p>
+    <div class="content-padded" ng-if="charityData && hasGeneralInfo()">
+      <a ng-if="charityData.general.website" class="btn btn-block btn-outlined" href="{{ charityData.general.website }}">Visit Website</a>
+      <a ng-if="charityData.general.email" class="btn btn-block btn-outlined" href="mailto:{{ charityData.general.email }}">Send Email</a>
     </div>
+
+    <p class="content-padded" ng-if="charityData && !hasGeneralInfo()">
+      No website or email addresses are available for this charity.
+    </p>
 
     <%= render :partial => "templates/charityloading" %>
   </div>

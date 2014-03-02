@@ -16,13 +16,16 @@ App.controller 'CharityCtrl', ['$scope', '$location', '$timeout', '$http', '$rou
 
       $http.get(url)
         .success((data, status, headers, config) ->
-          #console.log(data)
+          console.log(data)
           $scope.charityData = data
           $rootScope.charities[$scope.bn] = data
         )
     else
       # Otherwise get the cached data from rootScope.
       $scope.charityData = $rootScope.charities[$scope.bn]
+
+  $scope.hasGeneralInfo = ->
+    return $scope.charityData.general.website or $scope.charityData.general.email
 
   $scope.setCharityData()
 ]
