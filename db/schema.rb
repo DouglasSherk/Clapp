@@ -11,7 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140302022956) do
+ActiveRecord::Schema.define(version: 20140302040131) do
+
+  create_table "categories", force: true do |t|
+    t.integer "catid"
+    t.string  "catlabel"
+  end
 
   create_table "compensation_infos", force: true do |t|
     t.string  "bn"

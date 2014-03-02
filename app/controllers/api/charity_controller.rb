@@ -6,8 +6,9 @@ class Api::CharityController < Api::ApiController
       return render :json => { :status => :notfound }
     end
 
-    donee = Donee.find_by bn2:bn
-    financials = Financials.find_by bn:bn
+    category     = Category.find_by(ident.category)
+    donee        = Donee.find_by bn2:bn
+    financials   = Financials.find_by bn:bn
     compensation = CompensationInfo.find_by bn:bn
 
     chart_data   = [financials.f5000.to_i, financials.f5010.to_i, financials.f5020.to_i, financials.f5030.to_i, financials.f5040.to_i]
@@ -18,9 +19,10 @@ class Api::CharityController < Api::ApiController
     msg = {
         :status => :ok,
         :general => {
-          :name    => Ident.display_name(ident.legalname),
-          :email   => ident.email,
-          :website => ident.website
+          :name     => ident.display_name,
+          :email    => ident.email,
+          :website  => ident.website,
+          :category => category.nil? ? nil : category.catlabel
         },
         :financial => {
           :total_assets        => financials.f4200,
@@ -50,7 +52,11 @@ class Api::CharityController < Api::ApiController
             :total_compensation => compensation.f390
           }
         },
-        :chart_url => chart.to_url
+        :chart_url => chart.to_url,
+        :category_info => {
+          :size          => category.number_of_charities,
+          :total_revenue => category.total_revenue
+        }
     }
     render :json => msg
   end
@@ -62,7 +68,7 @@ class Api::CharityController < Api::ApiController
 
     res = Ident.search_by_name(q, n, start)
     rows = res[0,n].map do |r|
-      { :bn => r.bn, :name => r.legalname }
+      { :bn => r.bn, :name => r.display_name }
     end
     msg = { :status => :ok, :results => rows, :next => res[n] ? res[n]["id"] : nil }
     render :json => msg
