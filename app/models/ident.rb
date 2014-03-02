@@ -16,12 +16,21 @@ class Ident < ActiveRecord::Base
       where{category == in_category}.limit(n+1)
     end
   end
+  def clean(str)
+    str.tr('Й','é')
+  end
   def display_name
-    if /^[A-Z0-9_\/ -]+$/ =~ legalname and legalname.include? ' '
-      legalname.titleize
-    else
-      legalname
+    res = accountname
+    if res == res.upcase and res.include? ' '
+      res = res.titleize
     end
+    clean(res)
+  end
+  def display_city
+    clean(city.titleize)
+  end
+  def display_website
+    website.downcase
   end
 =begin
   Designations:

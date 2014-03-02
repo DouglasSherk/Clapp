@@ -1,3 +1,5 @@
+require 'net/http'
+
 class Api::CharityController < Api::ApiController
   def categories
     render :json => Category.pluck(:catid,:catlabel)
@@ -51,7 +53,7 @@ class Api::CharityController < Api::ApiController
         :general => {
           :name     => ident.display_name,
           :email    => ident.email,
-          :website  => ident.website,
+          :website  => ident.display_website,
         },
         :financial => {
           :total_assets        => financials.f4200,
@@ -99,7 +101,7 @@ class Api::CharityController < Api::ApiController
 
     res = Ident.search_by_name(q, n, start)
     rows = res[0,n].map do |r|
-      { :bn => r.bn, :name => r.display_name }
+      { :bn => r.bn, :name => r.display_name, :city => r.display_city }
     end
     msg = { :status => :ok, :results => rows, :next => res[n] ? res[n]["id"] : nil }
     render :json => msg
