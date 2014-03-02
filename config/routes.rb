@@ -3,9 +3,10 @@ Clapp::Application.routes.draw do
 
   scope :templates do
     get '' => 'home#index', :as => 'templates'
-    get 'causes' => 'home#index', :as => 'causes'
+    get 'categories' => 'home#index', :as => 'categories'
     get 'recommended' => 'home#index', :as => 'recommended'
     get 'settings' => 'home#index', :as => 'settings'
+    get 'category/:id' => 'home#index', :as => 'category'
     get 'charity/:bn/financials' => 'home#index', :as => 'charity_financials'
     get 'charity/:bn/description' => 'home#index', :as => 'charity_description'
     get 'charity/:bn/news' => 'home#index', :as => 'charity_news'
