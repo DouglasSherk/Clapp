@@ -42,12 +42,17 @@ App.controller 'CharityCtrl', ['$scope', '$location', '$timeout', '$http', '$rou
 App.directive('rating', () ->
   return {
     restrict: 'E',
-    template: '<span ng-repeat="star in stars" class="icon icon-star-filled"></span>',
+    template: '<span ng-repeat="star in stars_filled" class="icon icon-star-filled"></span>' +
+              '<span ng-repeat="star in stars_unfilled" class="icon icon-star"></span>',
     
     link: ($scope, elem, attrs) -> 
-      $scope.stars = [];
+      $scope.stars_filled = [];
       for i in [1..$scope.ratingValue] 
-        $scope.stars.push({});
+        $scope.stars_filled.push({});
+      
+      $scope.stars_unfilled = [];
+      for i in [1..(5-$scope.ratingValue)]
+        $scope.stars_unfilled.push({});
     
   }
 );
