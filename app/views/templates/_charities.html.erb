@@ -1,0 +1,6 @@
+<ul class="table-view" ng-if="results">
+  <li class="table-view-cell" ng-repeat="result in results">
+    <% # This should really use an actual path. Can't get it to not escape. %>
+    <%= link_to '{{ result.name }}', '#/charity/{{ result.bn }}/financials' %>
+  </li>
+</ul>

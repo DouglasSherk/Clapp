@@ -1,4 +1,19 @@
 class Api::CharityController < Api::ApiController
+  def categories
+    render :json => Category.pluck(:catid,:catlabel)
+  end
+  def category
+    catid = params[:catid].to_i
+    start = params[:start].to_i
+    n     = params[:count].to_i || 5
+
+    res = Ident.search_by_category(catid, n, start)
+    rows = res[0,n].map do |r|
+      { :bn => r.bn, :name => r.display_name }
+    end
+    msg = { :status => :ok, :results => rows, :next => res[n] ? res[n]["id"] : nil }
+    render :json => msg
+  end
   def show
     bn = params[:bn]
     ident = Ident.find_by bn:bn
@@ -10,12 +25,14 @@ class Api::CharityController < Api::ApiController
     donee        = Donee.find_by bn2:bn
     financials   = Financials.find_by bn:bn
     compensation = CompensationInfo.find_by bn:bn
-
+   
+    # Financial breakdown chart
     chart_data   = [financials.f5000.to_i, financials.f5010.to_i, financials.f5020.to_i, financials.f5030.to_i, financials.f5040.to_i]
     chart_labels = ["Charitable Programs", "Mngmt./Admin.", "Fundraising", "Political Activity", "Other"]
     chart = GChart.pie :data   => chart_data,
                        :legend => chart_labels
-
+    
+    # News
     name = ident.display_name
     response = Net::HTTP.get_response(URI('http://ajax.googleapis.com/ajax/services/search/news?v=1.0&ned=ca&rsz=5&q=' + URI.escape(name)))
     response_parsed = JSON.parse(response.body)
@@ -85,15 +102,11 @@ class Api::CharityController < Api::ApiController
     render :json => msg
   end
 
-  def news
-    input = JSON.parse params[:data]
-    data  = input['values']
-    labels = input['labels']
 
-    chart  = GChart.pie :data   => data,
-                        :legend => labels
-
-    msg = { :chart_url => chart.to_url }
-    render :json => msg
+  def recommended
+    results = Financials.all.order(:f4700).map do |r|
+      { :bn => r.ident.bn, :name => r.ident.display_name }
+    end
+    return render :json => results
   end
 end

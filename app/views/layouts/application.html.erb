@@ -40,22 +40,22 @@
 </head>
 <body>
   <nav class="bar bar-tab">
-    <%= link_to root_path.hash_path, :class => "tab-item active" do %>
+    <a href="#/" class="tab-item" ng-class='{"active": tab("/")}'>
       <span class="icon icon-search"></span>
       <span class="tab-label">Find</span>
-    <% end %>
-    <%= link_to causes_path.hash_path, :class => "tab-item" do %>
+    </a>
+    <a href="#/causes" class="tab-item" ng-class='{"active": tab("/causes")}'>
       <span class="icon icon-person"></span>
       <span class="tab-label">Causes</span>
-    <% end %>
-    <%= link_to recommended_path.hash_path, :class => "tab-item" do %>
+    </a>
+    <a href="#/recommended" class="tab-item" ng-class='{"active": tab("/recommended")}'>
       <span class="icon icon-star-filled"></span>
       <span class="tab-label">Recommended</span>
-    <% end %>
-    <%= link_to settings_path.hash_path, :class => "tab-item" do %>
+    </a>
+    <a href="#/settings" class="tab-item" ng-class='{"active": tab("/settings")}'>
       <span class="icon icon-gear"></span>
       <span class="tab-label">Settings</span>
-    <% end %>
+    </a>
   </nav>
 
   <div class="content">

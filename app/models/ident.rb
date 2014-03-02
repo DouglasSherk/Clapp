@@ -9,6 +9,13 @@ class Ident < ActiveRecord::Base
       where{legalname =~ "%#{name}%"}.limit(n+1)
     end
   end
+  def self.search_by_category(in_category, n, start=nil)
+    unless start.nil?
+      where{(category == in_category) & (id >= start)}.limit(n+1)
+    else
+      where{category == in_category}.limit(n+1)
+    end
+  end
   def display_name
     if /^[A-Z0-9_\/ -]+$/ =~ legalname and legalname.include? ' '
       legalname.titleize
