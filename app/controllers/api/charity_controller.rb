@@ -15,6 +15,16 @@ class Api::CharityController < Api::ApiController
     chart_labels = ["Charitable Programs", "Mngmt./Admin.", "Fundraising", "Political Activity", "Other"]
     chart = GChart.pie :data   => chart_data,
                        :legend => chart_labels
+
+    name = Ident.display_name(ident.legalname)
+    response = Net::HTTP.get_response(URI('http://ajax.googleapis.com/ajax/services/search/news?v=1.0&ned=ca&rsz=5&q=' + URI.escape(name)))
+    response_parsed = JSON.parse(response.body)
+
+    news_results = []
+    truncated_articles = response_parsed["responseData"]["results"][0..4]
+    truncated_articles.each do |item|
+      news_results << item.slice('title', 'url')
+    end
     
     msg = {
         :status => :ok,
@@ -57,6 +67,7 @@ class Api::CharityController < Api::ApiController
           :size          => category.number_of_charities,
           :total_revenue => category.total_revenue
         }
+        :news => news_results
     }
     render :json => msg
   end
@@ -74,7 +85,7 @@ class Api::CharityController < Api::ApiController
     render :json => msg
   end
 
-  def chart
+  def news
     input = JSON.parse params[:data]
     data  = input['values']
     labels = input['labels']
