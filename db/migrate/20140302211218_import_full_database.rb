@@ -1,3 +1,5 @@
+require 'csv'
+
 class ImportFullDatabase < ActiveRecord::Migration
   def up
     puts "* importing donee2"
