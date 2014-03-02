@@ -9,9 +9,6 @@ class Ident < ActiveRecord::Base
       where{legalname =~ "%#{name}%"}.limit(n+1)
     end
   end
-  def self.count_by_category(catid)
-    where{category == catid}.count()
-  end
   def display_name
     if /^[A-Z0-9_\/ -]+$/ =~ legalname and legalname.include? ' '
       legalname.titleize

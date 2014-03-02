@@ -1,17 +1,10 @@
 class Category < ActiveRecord::Base
-  has_many :idents
+  has_many :idents, :foreign_key => :category, :primary_key => :catid
 
   def number_of_charities
-    Ident.count_by_category(catid)
+    idents.count()
   end
   def total_revenue
-    :error
-    #ret = ActiveRecord::Base.connection.execute('
-    #  SELECT * FROM idents
-    #  LEFT JOIN financials ON financials.bn = idents.bn
-    #  WHERE idents.category = ?
-    #', catid).first
-    #ret.nil? ? nil : ret['f']
-    #Ident.where(:category => catid).joins(:financials).where(:bn => :bn).sum('f4700')
+    idents.joins(:financials).sum(:f4700)
   end
 end

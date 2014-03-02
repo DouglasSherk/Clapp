@@ -22,7 +22,6 @@ class Api::CharityController < Api::ApiController
           :name     => ident.display_name,
           :email    => ident.email,
           :website  => ident.website,
-          :category => category.nil? ? nil : category.catlabel
         },
         :financial => {
           :total_assets        => financials.f4200,
@@ -54,6 +53,7 @@ class Api::CharityController < Api::ApiController
         },
         :chart_url => chart.to_url,
         :category_info => {
+          :name          => category.catlabel,
           :size          => category.number_of_charities,
           :total_revenue => category.total_revenue
         }
