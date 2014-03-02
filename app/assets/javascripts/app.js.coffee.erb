@@ -17,5 +17,5 @@ App.run ['$rootScope', '$location', \
          ($rootScope, $location) ->
   $rootScope.tab = (path) ->
     $location.path() == path ||
-    $location.path().contains('/category') && path == '/categories'
+    $location.path().indexOf('/category') != -1 && path == '/categories'
 ]
