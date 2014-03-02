@@ -16,7 +16,9 @@ App.controller 'CharityCtrl', ['$scope', '$location', '$timeout', '$http', '$rou
 
       $http.get(url)
         .success((data, status, headers, config) ->
-          console.log(data)
+          for i in [0..data.news.length-1]
+            data.news[i].url = unescape(data.news[i].url)
+
           $scope.charityData = data
           $rootScope.charities[$scope.bn] = data
         )
