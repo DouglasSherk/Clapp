@@ -7,7 +7,7 @@ App.controller 'HomeCtrl', ['$scope', '$location', '$timeout', '$http', \
   $scope.results = []
 
   $scope.$watch 'search', ->
-    $http.get('<%= angularApiPath(api_search_by_name_path) %>', {
+    $http.get('<%= angularApiPath(api_charity_search_path) %>', {
       params: {
         name: $scope.search,
       },
@@ -17,13 +17,15 @@ App.controller 'HomeCtrl', ['$scope', '$location', '$timeout', '$http', \
      )
 
 
-  $http({
-    method: 'GET', 
-    url: 'http://localhost:3000/api/get_chart',
-    params: {data:'{"values": [1,2], "labels": ["test","test1"]}'}
+  $http.get('<%= angularApiPath(api_get_chart_path) %>', {
+    params: {
+      data: {
+        values: [1, 2],
+        labels: ["test","test1"]
+      }
+    },
   }).success((data, status, headers, config) ->
      $scope.chart_url = data.chart_url
    ).error((data, status, headers, config) ->
    )
-     
 ]
