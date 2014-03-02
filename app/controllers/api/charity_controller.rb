@@ -48,8 +48,9 @@ class Api::CharityController < Api::ApiController
       (fundraising_efficiency.nil? || fundraising_efficiency > 1 ? 1 : 0) +
       (fundraising_efficiency.nil? || fundraising_efficiency > 3 ? 1 : 0) +
       (high_salaries == 0 ? 1 : 0) +
-      (very_high_salaries == 0 ? 1 : 0)
-    letter_grade = ("F".ord - (5*quality_score/6).to_i).chr
+      (very_high_salaries == 0 ? 1 : 0) +
+      1
+    letter_grade = ("F".ord - [quality_score,5].min).chr
    
     # Financial breakdown chart
     chart_data   = [exp_charity, exp_admin, exp_fundraising, exp_political, exp_other]
