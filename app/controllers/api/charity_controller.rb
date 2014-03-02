@@ -31,6 +31,9 @@ class Api::CharityController < Api::ApiController
     chart_labels = ["Charitable Programs", "Mngmt./Admin.", "Fundraising", "Political Activity", "Other"]
     chart = GChart.pie :data   => chart_data,
                        :legend => chart_labels
+    chart.width  = 425
+    chart.height = 200
+    chart.entire_background = "f2f2f2"
     
     # News
     name = ident.display_name
