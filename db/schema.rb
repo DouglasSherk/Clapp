@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140301231844) do
+ActiveRecord::Schema.define(version: 20140302022956) do
 
   create_table "compensation_infos", force: true do |t|
     t.string  "bn"
@@ -121,6 +121,86 @@ ActiveRecord::Schema.define(version: 20140301231844) do
     t.decimal "f5750", precision: 14, scale: 2
     t.decimal "f5900", precision: 14, scale: 2
     t.decimal "f5910", precision: 14, scale: 2
+  end
+
+  create_table "general_infos", force: true do |t|
+    t.string  "bn"
+    t.string  "fpe"
+    t.string  "program1code"
+    t.integer "program1percentage"
+    t.string  "program1descreng"
+    t.string  "program1descrfre"
+    t.string  "program2code"
+    t.integer "program2percentage"
+    t.string  "program2descreng"
+    t.string  "program2descrfre"
+    t.string  "program3code"
+    t.integer "program3percentage"
+    t.string  "program3descreng"
+    t.string  "program3descrfre"
+    t.string  "f1510"
+    t.string  "f1510bn"
+    t.string  "f1510name"
+    t.string  "f1570"
+    t.string  "f1600"
+    t.string  "f1800"
+    t.string  "f2000"
+    t.string  "f2100"
+    t.string  "f2400"
+    t.decimal "f5030",              precision: 14, scale: 2
+    t.string  "f2500"
+    t.string  "f2510"
+    t.string  "f2530"
+    t.string  "f2540"
+    t.string  "f2550"
+    t.string  "f2560"
+    t.string  "f2570"
+    t.string  "f2575"
+    t.string  "f2580"
+    t.string  "f2590"
+    t.string  "f2600"
+    t.string  "f2610"
+    t.string  "f2620"
+    t.string  "f2630"
+    t.string  "f2640"
+    t.string  "f2650"
+    t.string  "f2660"
+    t.string  "f2700"
+    t.decimal "f5450",              precision: 14, scale: 2
+    t.decimal "f5460",              precision: 14, scale: 2
+    t.string  "f2730"
+    t.string  "f2740"
+    t.string  "f2750"
+    t.string  "f2760"
+    t.string  "f2770"
+    t.string  "f2780"
+    t.string  "f2790"
+    t.string  "f2800"
+    t.string  "f3200"
+    t.string  "f3400"
+    t.string  "f3900"
+    t.string  "f4000"
+    t.string  "f5800"
+    t.string  "f5810"
+    t.string  "f5820"
+  end
+
+  create_table "idents", force: true do |t|
+    t.string  "bn"
+    t.integer "category"
+    t.string  "designation"
+    t.string  "legalname"
+    t.string  "accountname"
+    t.string  "addressline1"
+    t.string  "addressline2"
+    t.string  "city"
+    t.string  "province"
+    t.string  "postalcode"
+    t.string  "country"
+    t.string  "publiccontactname"
+    t.string  "phone"
+    t.string  "email"
+    t.string  "website"
   end
 
 end
