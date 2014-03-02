@@ -1,12 +1,21 @@
 <div ng-controller="CharityCtrl">
   <%= render :partial => "templates/charitynav", :locals => {:tab => "financials"} %>
 
+  <!-- TODO: put this elsewhere; totally dirty -->
+  <style>
+    .table-view-cell {
+      padding-right: 15px;
+    }
+  </style>
   <div class="content">
+    <ul class="table-view">
+      <li class="table-view-cell">Total Assets <span class="pull-right">${{ charityData.financial.total_assets }}</span></li>
+      <li class="table-view-cell">Total Expenditures <span class="pull-right">${{ charityData.financial.total_expenditures }}</span></li>
+      <li class="table-view-cell">Total Liabilities <span class="pull-right">${{ charityData.financial.total_liabilities }}</span></li>
+      <li class="table-view-cell">Total Revenue <span class="pull-right">${{ charityData.financial.total_revenue }}</span></li>
+    </ul>
+
     <div class="content-padded" ng-if="charityData">
-      <p>Total assets: {{ charityData.financial.total_assets }}</p>
-      <p>Total expenditures: {{ charityData.financial.total_expenditures }}</p>
-      <p>Total liabilities: {{ charityData.financial.total_liabilities }}</p>
-      <p>Total revenue: {{ charityData.financial.total_revenue }}</p>
       <img ng-src="{{ charityData.chart_url }}" alt="Financials Breakdown" width="100%" />
     </div>
 
