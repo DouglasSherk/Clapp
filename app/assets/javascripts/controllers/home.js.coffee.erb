@@ -22,19 +22,14 @@ App.controller 'HomeCtrl', ['$scope', '$location', '$timeout', '$http', '$routeP
        ).error((data, status, headers, config) ->
        )
 
-  /*
-  console.log($routeParams)
-  $scope.fetchCategory = ->
-    $http.get('<%= angularApiPath(api_charity_category_path) %>', {
-      params: {
-      }
-    }).success((data, status, headers, config) ->
-      console.log(data);
-    );
-    */
-    console.log('hello')
+  $scope.fetchCategoryName = ->
+    url = "<%= site_host() %>/api/charity/category/#{$routeParams.id}"
+
+    $http.get(url)
+      .success((data, status, headers, config) ->
+        $scope.categoryName = data.category.catlabel
+      );
 
   if $location.path().indexOf('category') != -1
-    $scope.fetchCategory()
-  */
+    $scope.fetchCategoryName()
 ]
