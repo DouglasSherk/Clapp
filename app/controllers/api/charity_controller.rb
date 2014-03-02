@@ -4,8 +4,8 @@ class Api::CharityController < Api::ApiController
   end
   def category
     catid = params[:catid].to_i
-    start = params[:start].to_i
-    n     = params[:count].to_i || 5
+    start = params[:start]
+    n     = (params[:count] || 5).to_i
 
     res = Ident.search_by_category(catid, n, start)
     rows = res[0,n].map do |r|
@@ -95,7 +95,7 @@ class Api::CharityController < Api::ApiController
   def search
     q     = params[:q]
     start = params[:start]
-    n     = params[:count] || 5
+    n     = (params[:count] || 5).to_i
 
     res = Ident.search_by_name(q, n, start)
     rows = res[0,n].map do |r|
@@ -107,9 +107,17 @@ class Api::CharityController < Api::ApiController
 
 
   def recommended
-    results = Financials.all.order(:f4700).map do |r|
+    start = params[:start]
+    n     = (params[:count] || 10).to_i
+
+    unless start.nil?
+      res = Financials.where{f4700 <= start}.order(f4700: :desc).limit(n+1)
+    else
+      res = Financials.all.order(f4700: :desc).limit(n+1)
+    end
+    rows = res[0,n].map do |r|
       { :bn => r.ident.bn, :name => r.ident.display_name }
     end
-    return render :json => results
+    render :json => { :status => :ok, :results => rows, :next => res[n] ? res[n]["f4700"] : nil }
   end
 end
