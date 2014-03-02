@@ -1,4 +1,4 @@
 Clapp
 =====
 
-Charity List App - **Get the Clapp**
+CharityCheck - *Get the facts on Canadian charities*
