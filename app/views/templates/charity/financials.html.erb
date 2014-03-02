@@ -1,15 +1,27 @@
 <div class="card" ng-controller="CharityCtrl">
   <div class="segmented-control">
-    <a class="control-item active" href="#/charity/{{ charityBN }}/financials">
+    <a class="control-item active" href="#/charity/{{ bn }}/financials">
       Financials
     </a>
-    <a class="control-item" href="#/charity/{{ charityBN }}/description">
+    <a class="control-item" href="#/charity/{{ bn }}/description">
       Description
     </a>
-    <a class="control-item" href="#/charity/{{ charityBN }}/news">
+    <a class="control-item" href="#/charity/{{ bn }}/news">
       News
     </a>
   </div>
 
-  financials
+  <div ng-if="charityData">
+    <p>Total assets: {{ charityData.financial.total_assets }}</p>
+    <p>Total expenditures: {{ charityData.financial.total_expenditures }}</p>
+    <p>Total liabilities: {{ charityData.financial.total_liabilities }}</p>
+    <p>Total revenue: {{ charityData.financial.total_revenue }}</p>
+    <img src="{{ charityData.chart_url }}" />
+  </div>
+
+  <p ng-if="!charityData">
+    <!-- TODO: display spinner -->
+    Loading charity data.
+  </p>
+
 </div>
