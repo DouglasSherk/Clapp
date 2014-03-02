@@ -1,5 +1,5 @@
 class Ident < ActiveRecord::Base
-  belongs_to :category
+  #belongs_to :category, :foreign_key => :category, :primary_key => :catid
   has_one :financials, :foreign_key => :bn, :primary_key => :bn
 
   def self.search_by_name(name, n, start=nil, cat=nil)

@@ -27,6 +27,7 @@ class Api::CharityController < Api::ApiController
     donee        = Donee.find_by bn2:bn
     financials   = Financials.find_by bn:bn
     compensation = CompensationInfo.find_by bn:bn
+    donations = financials.f4630 / 1000000  #donee.totalgifts
    
     # Financial breakdown chart
     chart_data   = [financials.f5000.to_i, financials.f5010.to_i, financials.f5020.to_i, financials.f5030.to_i, financials.f5040.to_i]
@@ -51,6 +52,10 @@ class Api::CharityController < Api::ApiController
     
     msg = {
         :status => :ok,
+        :bn => bn,
+        :summary   => :willnotimplement,
+        :donations => donations,  # in millions of dollars
+        :average_compensation => (compensation.f390 - compensation.f380) / compensation.f300,
         :general => {
           :name     => ident.display_name,
           :email    => ident.email,
@@ -63,13 +68,17 @@ class Api::CharityController < Api::ApiController
           :total_revenue       => financials.f4700,
           :total_expenditures  => financials.f5100,
           :expenditures => {
+            :professional_fees   => financials.f4860,
             :charitable_programs => financials.f5000,
             :management_or_admin => financials.f5010,
             :fundraising         => financials.f5020,
             :political           => financials.f5030
           },
           :compensation => {
-            :total_paid_positions => compensation.f300,
+            :total_full_time_positions => compensation.f300,
+            :total_full_time_compensation => compensation.f390 - compensation.f380,
+            :total_part_time_positions => compensation.f370,
+            :total_part_time_compensation => compensation.f380,
             :top10 => {
               :pay_1_to_39999       => compensation.f305||0,
               :pay_40000_to_79999   => compensation.f310||0,
