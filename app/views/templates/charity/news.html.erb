@@ -11,5 +11,17 @@
     </a>
   </div>
 
-  news
+  <ul ng-if="charityData && !charityData.news" ng-repeat="item in charityData.news">
+    <li>{{ item }}</li>
+  </ul>
+
+  <p ng-if="charityData && !charityData.news">
+    No news.
+  </p>
+
+  <p ng-if="!charityData">
+    <!-- TODO: display spinner -->
+    Loading charity data.
+  </p>
+
 </div>

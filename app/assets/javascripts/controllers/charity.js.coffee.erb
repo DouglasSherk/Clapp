@@ -10,7 +10,7 @@ App.controller 'CharityCtrl', ['$scope', '$location', '$timeout', '$http', '$rou
     # Ensure rootScope contains a charities object.
     $rootScope.charities = {} if 'charities' not of $rootScope
 
-    if $routeParams.bn not of $rootScope.charities
+    if $scope.bn not of $rootScope.charities
       # Load the charity if we haven't yet.
       url = "<%= site_host() %>/api/charity/#{$scope.bn}"
 
@@ -18,7 +18,7 @@ App.controller 'CharityCtrl', ['$scope', '$location', '$timeout', '$http', '$rou
         .success((data, status, headers, config) ->
           #console.log(data)
           $scope.charityData = data
-          $rootScope.charities[$scope.bn] = data.results
+          $rootScope.charities[$scope.bn] = data
         )
     else
       # Otherwise get the cached data from rootScope.

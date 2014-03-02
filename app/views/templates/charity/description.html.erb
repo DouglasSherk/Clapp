@@ -11,5 +11,15 @@
     </a>
   </div>
 
-  description
+  <div ng-if="charityData">
+    <p ng-if="charityData.general.website">
+      <a href="{{ charityData.general.website }}">Website</a>
+    </p>
+  </div>
+
+  <p ng-if="!charityData">
+    <!-- TODO: display spinner -->
+    Loading charity data.
+  </p>
+
 </div>
