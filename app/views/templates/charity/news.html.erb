@@ -8,11 +8,9 @@
       </li>
     </ul>
 
-    <div class="content-padded" ng-if="charityData && !charityData.news.length">
-      <p>
-        No news.
-      </p>
-    </div>
+    <p class="content-padded" ng-if="charityData && !charityData.news.length" style="text-align: center">
+      No news found for this charity.
+    </p>
 
     <%= render :partial => "templates/charityloading" %>
   </div>

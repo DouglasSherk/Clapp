@@ -8,9 +8,10 @@
       <%= fa_icon "spin spinner" %>
     </div>
 
-    <p class="content-padded" ng-if="charityData && !hasGeneralInfo()">
-      No website or email address available for this charity.
+    <p class="content-padded" ng-if="charityData && !hasGeneralInfo()" style="text-align: center;">
+      No website or email address found for this charity.
     </p>
+
     <div ng-init="ratingValue = 3">
       <rating></rating>
     </div>

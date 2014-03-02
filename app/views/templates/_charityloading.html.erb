@@ -1,4 +1,4 @@
-<p class="content-padded" ng-if="!charityData">
-  <!-- TODO: display spinner -->
-  Loading charity data.
-</p>
+<div class="content-padded" ng-if="!charityData" style="text-align: center;">
+  <p>Loading charity data&hellip;</p>
+  <p><%= fa_icon "spin spinner", class: "fa-2x" %></p>
+</div>
