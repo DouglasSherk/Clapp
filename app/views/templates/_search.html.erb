@@ -1,5 +1,5 @@
 <div ng-controller="HomeCtrl">
-  <% if category_filter %>
+  <% if local_assigns[:category_filter] %>
     <input type="hidden" ng-model="filter" ng-init="filter=true">
   <% end %>
   <div class="bar bar-standard bar-header-secondary">
