@@ -50,8 +50,11 @@ App.directive('rating', () ->
 
       updateStars = () ->
         $scope.stars_filled = [];
-        for i in [1..$scope.ratingValue] 
-          $scope.stars_filled.push({});
+
+        if $scope.ratingValue > 0
+          for i in [1..$scope.ratingValue] 
+            $scope.stars_filled.push({});
+        
         $scope.stars_unfilled = [];
 
         if $scope.ratingValue < 5
@@ -59,7 +62,6 @@ App.directive('rating', () ->
             $scope.stars_unfilled.push({});
 
       $scope.$watch('ratingValue', (oldVal, newVal) ->
-        if newVal
           updateStars();
       );
 
