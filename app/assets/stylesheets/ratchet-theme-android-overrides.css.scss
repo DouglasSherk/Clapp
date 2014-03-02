@@ -7,4 +7,8 @@ body {
   .table-view .table-view-cell:last-child {
     border-bottom: 0;
   }
+
+  .no-secondary-header {
+    padding-top: 50px;
+  }
 }
