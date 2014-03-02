@@ -9,7 +9,7 @@ App.controller 'HomeCtrl', ['$scope', '$location', '$timeout', '$http', \
   $scope.$watch 'search', ->
     $http.get('<%= angularApiPath(api_charity_search_path) %>', {
       params: {
-        name: $scope.search,
+        q: $scope.search,
       },
     }).success((data, status, headers, config) ->
        $scope.results = data.results
