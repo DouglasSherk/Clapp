@@ -43,7 +43,7 @@ class Api::CharityController < Api::ApiController
       item['title'] = ActionView::Base.full_sanitizer.sanitize(item['title'])
       news_results << item.slice('title', 'url')
     end
-    
+
     msg = {
         :status => :ok,
         :bn => bn,
@@ -93,7 +93,8 @@ class Api::CharityController < Api::ApiController
           :size          => category.number_of_charities,
           :total_revenue => category.total_revenue
         },
-        :news => news_results
+        :news => news_results,
+        :average_rating => ident.average_rating.to_i
     }
     render :json => msg
   end
@@ -127,4 +128,22 @@ class Api::CharityController < Api::ApiController
     end
     render :json => { :status => :ok, :results => rows, :next => res[n] ? res[n]["f4700"] : nil }
   end
+
+  def rate
+    rating = params[:rating]
+    bn     = params[:bn]
+
+    ident = Ident.find_by bn:bn
+
+    if ident.average_rating == nil
+      ident.average_rating = 0.0
+    end
+
+    ident.average_rating = (ident.average_rating * 0.9) + rating.to_i * 0.1
+
+    ident.save
+
+    render :json => { :status => :ok }
+  end
+    
 end

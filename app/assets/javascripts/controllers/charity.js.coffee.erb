@@ -22,6 +22,7 @@ App.controller 'CharityCtrl', ['$scope', '$location', '$timeout', '$http', '$rou
 
           $scope.charityData = data
           $rootScope.charities[$scope.bn] = data
+          $scope.ratingValue = data.average_rating || 0
         )
     else
       # Otherwise get the cached data from rootScope.
@@ -38,17 +39,29 @@ App.controller 'CharityCtrl', ['$scope', '$location', '$timeout', '$http', '$rou
     return website
 
   $scope.setCharityData()
+
 ]
 
-App.directive('rating', () ->
+App.directive('rating', ($http) ->
   return {
     restrict: 'E',
     template: '<span ng-repeat="star in stars_filled" class="icon icon-star-filled" ng-click="lower($index)"></span>' +
               '<span ng-repeat="star in stars_unfilled" class="icon icon-star" ng-click="higher($index)"></span>',
     
-    link: ($scope, elem, attrs) -> 
+    link: ($scope, elem, attrs) -> (
+      sendVoteRequest = () -> (
+        $http.get('<%= angularApiPath(api_charity_rate_path) %>', {
+          params: {
+            rating: $scope.ratingValue,
+            bn:     $scope.bn
+          },
+        }).success((data, status, headers, config) ->
+         ).error((data, status, headers, config) ->
+         )
+      )
 
-      updateStars = () ->
+      updateStars = () -> (
+
         $scope.stars_filled = [];
 
         if $scope.ratingValue > 0
@@ -60,17 +73,22 @@ App.directive('rating', () ->
         if $scope.ratingValue < 5
           for i in [1..(5-$scope.ratingValue)]
             $scope.stars_unfilled.push({});
+      )
 
       $scope.$watch('ratingValue', (oldVal, newVal) ->
           updateStars();
-      );
+      )
 
-      $scope.lower = (index) ->
+      $scope.lower = (index) -> (
         $scope.ratingValue = index + 1;
+        sendVoteRequest();
+      )
 
-      $scope.higher = (index) ->
+      $scope.higher = (index) -> (
         $scope.ratingValue += index + 1;
-    
+        sendVoteRequest();
+      )
+    )
   }
 );
 
