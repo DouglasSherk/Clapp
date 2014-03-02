@@ -9,8 +9,8 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
+ *= require font-awesome/font-awesome
  *= require ratchet
  *= require ratchet-theme-android
- *= require font-awesome/font-awesome
  *= require_tree .
  */
