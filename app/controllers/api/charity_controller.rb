@@ -10,7 +10,7 @@ class Api::CharityController < Api::ApiController
     financials = Financials.find_by bn:bn
     compensation = CompensationInfo.find_by bn:bn
 
-    chart_data   = [financials[:f5000], financials[:f5010], financials[:f5020], financials[:f5030], financials[:f5040]]
+    chart_data   = [financials.f5000.to_i, financials.f5010.to_i, financials.f5020.to_i, financials.f5030.to_i, financials.f5040.to_i]
     chart_labels = ["Charitable Programs", "Mngmt./Admin.", "Fundraising", "Political Activity", "Other"]
     chart = GChart.pie :data   => chart_data,
                        :legend => chart_labels
@@ -49,7 +49,8 @@ class Api::CharityController < Api::ApiController
             },
             :total_compensation => compensation.f390
           }
-        }
+        },
+        :chart_url => chart.to_url
     }
     render :json => msg
   end
