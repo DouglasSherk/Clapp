@@ -100,17 +100,6 @@ class Api::CharityController < Api::ApiController
     render :json => msg
   end
 
-  def news
-    input = JSON.parse params[:data]
-    data  = input['values']
-    labels = input['labels']
-
-    chart  = GChart.pie :data   => data,
-                        :legend => labels
-
-    msg = { :chart_url => chart.to_url }
-    render :json => msg
-  end
 
   def recommended
     results = Financials.all.order(:f4700).map do |r|
