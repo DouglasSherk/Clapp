@@ -40,22 +40,22 @@
 </head>
 <body>
   <nav class="bar bar-tab">
-    <a class="tab-item active" href="#">
+    <%= link_to root_path.hash_path, :class => "tab-item active" do %>
       <span class="icon icon-search"></span>
       <span class="tab-label">Find</span>
-    </a>
-    <a class="tab-item" href="#">
+    <% end %>
+    <%= link_to causes_path.hash_path, :class => "tab-item" do %>
       <span class="icon icon-person"></span>
       <span class="tab-label">Causes</span>
-    </a>
-    <a class="tab-item" href="#">
+    <% end %>
+    <%= link_to recommended_path.hash_path, :class => "tab-item" do %>
       <span class="icon icon-star-filled"></span>
       <span class="tab-label">Recommended</span>
-    </a>
-    <a class="tab-item" href="#">
+    <% end %>
+    <%= link_to settings_path.hash_path, :class => "tab-item" do %>
       <span class="icon icon-gear"></span>
       <span class="tab-label">Settings</span>
-    </a>
+    <% end %>
   </nav>
 
   <div class="content">

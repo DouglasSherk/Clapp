@@ -3,6 +3,9 @@ Clapp::Application.routes.draw do
 
   scope :templates do
     get '' => 'home#index', :as => 'templates'
+    get 'causes' => 'home#index', :as => 'causes'
+    get 'recommended' => 'home#index', :as => 'recommended'
+    get 'settings' => 'home#index', :as => 'settings'
   end
 
   scope :api do
