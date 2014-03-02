@@ -2,8 +2,10 @@
   <%= render :partial => "templates/charitynav", :locals => {:tab => "news"} %>
 
   <div class="content">
-    <ul ng-if="charityData && !charityData.news" ng-repeat="item in charityData.news">
-      <li>{{ item }}</li>
+    <ul class="table-view" ng-if="charityData && charityData.news">
+      <li class="table-view-cell" ng-repeat="item in charityData.news">
+        <a class="push-right" href="{{ item.url }}">{{ item.title }}</a>
+      </li>
     </ul>
 
     <p ng-if="charityData && !charityData.news">

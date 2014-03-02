@@ -45,6 +45,7 @@ class Api::CharityController < Api::ApiController
     news_results = []
     truncated_articles = response_parsed["responseData"]["results"][0..4]
     truncated_articles.each do |item|
+      item['title'] = ActionView::Base.full_sanitizer.sanitize(item['title'])
       news_results << item.slice('title', 'url')
     end
     
