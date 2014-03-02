@@ -16,6 +16,7 @@ Clapp::Application.routes.draw do
       get 'categories'      => 'api/charity#categories', :as => 'api_charity_categories'
       get 'category/:catid' => 'api/charity#category',   :as => 'api_charity_category'
       get 'search'          => 'api/charity#search',     :as => 'api_charity_search'
+      get 'recommended' => 'api/charity#recommended', :as => 'api_charity_recommended'
       get ':bn'             => 'api/charity#show',       :as => 'api_charity_show'
     end
   end

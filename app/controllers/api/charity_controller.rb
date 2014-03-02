@@ -111,4 +111,11 @@ class Api::CharityController < Api::ApiController
     msg = { :chart_url => chart.to_url }
     render :json => msg
   end
+
+  def recommended
+    results = Financials.all.order(:f4700).map do |r|
+      { :bn => r.ident.bn, :name => r.ident.display_name }
+    end
+    return render :json => results
+  end
 end
