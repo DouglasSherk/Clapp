@@ -8,7 +8,9 @@ body {
     border-bottom: 0;
   }
 
-  #view > .content {
-    padding-top: 50px;
+  #view {
+    > .content, > .content-padding {
+      padding-top: 50px;
+    }
   }
 }

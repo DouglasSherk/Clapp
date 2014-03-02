@@ -1,3 +1,16 @@
 <div class="content">
-
+  <ul class="table-view">
+    <li class="table-view-cell">
+      Test
+      <div class="toggle" ng-click="testActive = !testActive" ng-class='{"active": testActive}' ng-init="testActive=true">
+        <div class="toggle-handle"></div>
+      </div>
+    </li>
+    <li class="table-view-cell">
+      Notifications
+      <div class="toggle" ng-click="notificationsActive = !notificationsActive" ng-class='{"active": notificationsActive}'>
+        <div class="toggle-handle"></div>
+      </div>
+    </li>
+  </ul>
 </div>
