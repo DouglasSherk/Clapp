@@ -30,7 +30,7 @@ class Ident < ActiveRecord::Base
     clean(city.titleize)
   end
   def display_website
-    website.downcase
+    (website || '').downcase
   end
 =begin
   Designations:
