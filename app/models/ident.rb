@@ -1,6 +1,6 @@
 class Ident < ActiveRecord::Base
   belongs_to :category
-  has_one :financials
+  has_one :financials, :foreign_key => :bn, :primary_key => :bn
 
   def self.search_by_name(name, n, start=nil)
     unless start.nil?
