@@ -71,6 +71,10 @@ namespace :phonegap do
       end
     end
 
+    # Copy ratchicons
+    puts "* ratchicons/"
+    FileUtils.cp_r File.expand_path('../../../../public/assets/ratchicons', __FILE__), "#{project_path}/css"
+
     # Export all layouts
     puts "* layouts (index.html)"
     public_source = File.expand_path('../../../../public', __FILE__)
