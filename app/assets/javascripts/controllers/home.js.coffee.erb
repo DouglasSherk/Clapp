@@ -7,14 +7,15 @@ App.controller 'HomeCtrl', ['$scope', '$location', '$timeout', '$http', \
   $scope.results = []
 
   $scope.$watch 'search', ->
-    $http.get('<%= angularApiPath(api_charity_search_path) %>', {
-      params: {
-        q: $scope.search,
-      },
-    }).success((data, status, headers, config) ->
-       $scope.results = data.results
-     ).error((data, status, headers, config) ->
-     )
+    if $scope.search.length > 2
+      $http.get('<%= angularApiPath(api_charity_search_path) %>', {
+        params: {
+          q: $scope.search,
+        },
+      }).success((data, status, headers, config) ->
+         $scope.results = data.results
+       ).error((data, status, headers, config) ->
+       )
 
 
   $http.get('<%= angularApiPath(api_get_chart_path) %>', {
