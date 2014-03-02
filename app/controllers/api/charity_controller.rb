@@ -55,7 +55,10 @@ class Api::CharityController < Api::ApiController
     n     = params[:count] || 5
 
     res = Ident.search_by_name(q, n, start)
-    msg = { :status => :ok, :results => res[0,n], :next => res[n] ? res[n]["id"] : nil }
+    rows = res[0,n].map do |r|
+      { :bn => r.bn, :name => r.legalname }
+    end
+    msg = { :status => :ok, :results => rows, :next => res[n] ? res[n]["id"] : nil }
     render :json => msg
   end
 
