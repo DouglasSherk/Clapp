@@ -12,7 +12,18 @@ App.controller 'HomeCtrl', ['$scope', '$location', '$timeout', '$http', \
         name: $scope.search,
       },
     }).success((data, status, headers, config) ->
-      $scope.results = data.results
-    ).error((data, status, headers, config) ->
-    )
+       $scope.results = data.results
+     ).error((data, status, headers, config) ->
+     )
+
+
+  $http({
+    method: 'GET', 
+    url: 'http://localhost:3000/api/get_chart',
+    params: {data:'{"values": [1,2], "labels": ["test","test1"]}'}
+  }).success((data, status, headers, config) ->
+     $scope.chart_url = data.chart_url
+   ).error((data, status, headers, config) ->
+   )
+     
 ]
