@@ -1,4 +1,19 @@
 class Api::CharityController < Api::ApiController
+  def categories
+    render :json => Category.pluck(:catid,:catlabel)
+  end
+  def category
+    catid = params[:catid].to_i
+    start = params[:start].to_i
+    n     = params[:count].to_i || 5
+
+    res = Ident.search_by_category(catid, n, start)
+    rows = res[0,n].map do |r|
+      { :bn => r.bn, :name => r.display_name }
+    end
+    msg = { :status => :ok, :results => rows, :next => res[n] ? res[n]["id"] : nil }
+    render :json => msg
+  end
   def show
     bn = params[:bn]
     ident = Ident.find_by bn:bn
@@ -74,8 +89,8 @@ class Api::CharityController < Api::ApiController
 
   def search
     q     = params[:q]
-    start = params[:start]
-    n     = params[:count] || 5
+    start = params[:start].to_i
+    n     = params[:count].to_i || 5
 
     res = Ident.search_by_name(q, n, start)
     rows = res[0,n].map do |r|
