@@ -16,7 +16,7 @@
     <p>Total expenditures: {{ charityData.financial.total_expenditures }}</p>
     <p>Total liabilities: {{ charityData.financial.total_liabilities }}</p>
     <p>Total revenue: {{ charityData.financial.total_revenue }}</p>
-    <img src="{{ charityData.chart_url }}" />
+    <img ng-src="{{ charityData.chart_url }}" alt="Financials Breakdown" />
   </div>
 
   <p ng-if="!charityData">
