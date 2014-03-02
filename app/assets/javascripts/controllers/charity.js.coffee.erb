@@ -1,0 +1,8 @@
+<% environment.context_class.instance_eval { include ActionView::Helpers } %>
+<% environment.context_class.instance_eval { include HostHelper } %>
+<% environment.context_class.instance_eval { include Rails.application.routes.url_helpers } %>
+
+App.controller 'CharityCtrl', ['$scope', '$location', '$timeout', '$http', '$routeParams', \
+                            ($scope, $location, $timeout, $http, $routeParams) ->
+  $scope.charityBN = $routeParams.bn;
+]
