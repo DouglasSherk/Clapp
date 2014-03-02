@@ -6,14 +6,8 @@ class Api::CharityController < Api::ApiController
   end
   def category
     catid = params[:catid].to_i
-    start = params[:start]
-    n     = (params[:count] || 5).to_i
-
-    res = Ident.search_by_category(catid, n, start)
-    rows = res[0,n].map do |r|
-      { :bn => r.bn, :name => r.display_name }
-    end
-    msg = { :status => :ok, :results => rows, :next => res[n] ? res[n]["id"] : nil }
+    category = Category.find(catid)
+    msg = { :status => :ok, :category => category }
     render :json => msg
   end
   def show
