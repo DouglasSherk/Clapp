@@ -47,7 +47,7 @@ App.directive('rating', ($http) ->
     restrict: 'E',
     template: '<span ng-repeat="star in stars_filled" class="icon icon-star-filled" ng-click="lower($index)"></span>' +
               '<span ng-repeat="star in stars_unfilled" class="icon icon-star" ng-click="higher($index)"></span>',
-    
+
     link: ($scope, elem, attrs) -> (
       sendVoteRequest = () -> (
         $http.get('<%= angularApiPath(api_charity_rate_path) %>', {
@@ -56,18 +56,16 @@ App.directive('rating', ($http) ->
             bn:     $scope.bn
           },
         }).success((data, status, headers, config) ->
-         ).error((data, status, headers, config) ->
-         )
+        )
       )
 
       updateStars = () -> (
-
         $scope.stars_filled = [];
 
         if $scope.ratingValue > 0
-          for i in [1..$scope.ratingValue] 
+          for i in [1..$scope.ratingValue]
             $scope.stars_filled.push({});
-        
+
         $scope.stars_unfilled = [];
 
         if $scope.ratingValue < 5
@@ -76,7 +74,7 @@ App.directive('rating', ($http) ->
       )
 
       $scope.$watch('ratingValue', (oldVal, newVal) ->
-          updateStars();
+        updateStars();
       )
 
       $scope.lower = (index) -> (
