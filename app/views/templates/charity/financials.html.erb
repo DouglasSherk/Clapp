@@ -1,14 +1,13 @@
-<div ng-controller="CharityCtrl">
+<div ng-controller="CharityCtrl" class="financials">
   <%= render :partial => "templates/charitynav", :locals => {:tab => "financials"} %>
 
-  <!-- TODO: put this elsewhere; totally dirty -->
-  <style>
-    .table-view-cell {
-      padding-right: 15px;
-    }
-  </style>
   <div class="content">
-    <h2 class="content-padded">{{ charityData.general.name }}</h2>
+    <h2 class="content-padded" style="text-align: center;">{{ charityData.general.name }}</h2>
+
+    <div class="content-padded" ng-if="charityData && charityData.chart_url">
+      <img ng-src="{{ charityData.chart_url }}" alt="Financials Breakdown" width="100%" />
+    </div>
+
     <ul class="table-view" ng-if="charityData">
       <li class="table-view-cell" ng-if="charityData.financial.total_assets">
         <strong>CharityCheck Score™</strong>
@@ -30,30 +29,24 @@
         Total Expenditures
         <span class="pull-right">{{ charityData.financial.total_expenditures | currency }}</span>
       </li>
-    </ul>
 
-    <div class="content-padded" ng-if="charityData && charityData.chart_url">
-      <img ng-src="{{ charityData.chart_url }}" alt="Financials Breakdown" width="100%" />
-    </div>
+      <li class="table-view-cell table-view-divider">Compensation Overview</li>
 
-    <h2 class="content-padded">Compensation Info</h2>
-    <h3 class="content-padded">Statistics</h3>
-    <ul class="table-view" ng-if="charityData">
       <li class="table-view-cell">
-        Average salary of full-time employee
+        Average Salary <small><em>(Full-time Employees Only)</em></small>
         <span class="pull-right">{{ charityData.average_compensation | currency }}</span>
       </li>
       <li class="table-view-cell">
-        Number of full-time employees
+        Full-time Employees
         <span class="pull-right">{{ charityData.financial.compensation.total_full_time_positions | number }}</span>
       </li>
       <li class="table-view-cell">
-        Number of part-time employees
+        Part-time Employees
         <span class="pull-right">{{ charityData.financial.compensation.total_part_time_positions | number }}</span>
       </li>
-    </ul>
-    <h3 class="content-padded">Compensation of top 10 highest-paid employees</h3>
-    <ul class="table-view" ng-if="charityData">
+
+      <li class="table-view-cell table-view-divider">Compensation of top 10 highest-paid employees</li>
+
       <li class="table-view-cell" ng-if="charityData.financial.compensation.top10.pay_1_to_39999">
         $1 - $39,999
         <span class="pull-right">{{ charityData.financial.compensation.top10.pay_1_to_39999 }}</span>
