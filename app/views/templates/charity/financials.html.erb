@@ -16,10 +16,6 @@
         Total Assets
         <span class="pull-right">{{ charityData.financial.total_assets | currency }}</span>
       </li>
-      <li class="table-view-cell" ng-if="charityData.financial.total_expenditures">
-        Total Expenditures
-        <span class="pull-right">{{ charityData.financial.total_expenditures | currency }}</span>
-      </li>
       <li class="table-view-cell" ng-if="charityData.financial.total_liabilities">
         Total Liabilities
         <span class="pull-right">{{ charityData.financial.total_liabilities | currency }}</span>
@@ -27,6 +23,10 @@
       <li class="table-view-cell" ng-if="charityData.financial.total_revenue">
         Total Revenue
         <span class="pull-right">{{ charityData.financial.total_revenue | currency }}</span>
+      </li>
+      <li class="table-view-cell" ng-if="charityData.financial.total_expenditures">
+        Total Expenditures
+        <span class="pull-right">{{ charityData.financial.total_expenditures | currency }}</span>
       </li>
     </ul>
 
