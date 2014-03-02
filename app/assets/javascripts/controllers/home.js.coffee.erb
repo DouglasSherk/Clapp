@@ -18,7 +18,7 @@ App.controller 'HomeCtrl', ['$scope', '$location', '$timeout', '$http', \
        )
 
 
-  $http.get('<%= angularApiPath(api_get_chart_path) %>', {
+  $http.get('<%= angularApiPath(api_charity_get_chart_path) %>', {
     params: {
       data: {
         values: [1, 2],
