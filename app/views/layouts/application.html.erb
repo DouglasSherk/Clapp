@@ -39,15 +39,24 @@
   <link rel="apple-touch-icon-precomposed" sizes="57x57" href="images/apple-touch-icon-57x57.png">
 </head>
 <body>
-  <header class="bar bar-nav">
-    <a class="btn pull-left">
-      <%= fa_icon "bars" %>
+  <nav class="bar bar-tab">
+    <a class="tab-item active" href="#">
+      <span class="icon icon-search"></span>
+      <span class="tab-label">Find</span>
     </a>
-    <a class="btn pull-right">
-      Right
+    <a class="tab-item" href="#">
+      <span class="icon icon-person"></span>
+      <span class="tab-label">Causes</span>
     </a>
-    <h1 class="title">Clapp</h1>
-  </header>
+    <a class="tab-item" href="#">
+      <span class="icon icon-star-filled"></span>
+      <span class="tab-label">Recommended</span>
+    </a>
+    <a class="tab-item" href="#">
+      <span class="icon icon-gear"></span>
+      <span class="tab-label">Settings</span>
+    </a>
+  </nav>
 
   <div class="content">
 <!--

@@ -21,9 +21,9 @@
 !/phonegap/platforms/android/res/
 !/phonegap/platforms/android/libs/
 
-/public/assets
-
 **/.sass-cache
+
+**/.DS_Store
 
 # ignore vim swap
 *.swp
