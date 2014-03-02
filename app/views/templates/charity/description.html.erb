@@ -11,6 +11,9 @@
     <p class="content-padded" ng-if="charityData && !hasGeneralInfo()">
       No website or email address available for this charity.
     </p>
+    <div ng-init="ratingValue = 5">
+      <rating></rating>
+    </div>
 
     <%= render :partial => "templates/charityloading" %>
   </div>
