@@ -89,8 +89,8 @@ class Api::CharityController < Api::ApiController
 
   def search
     q     = params[:q]
-    start = params[:start].to_i
-    n     = params[:count].to_i || 5
+    start = params[:start]
+    n     = params[:count] || 5
 
     res = Ident.search_by_name(q, n, start)
     rows = res[0,n].map do |r|
