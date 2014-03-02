@@ -7,10 +7,10 @@
 
   <!-- versionCode is optional and Android only -->
 
-  <name>Clapp</name>
+  <name>CharityCheck</name>
 
   <description>
-    Clapp
+    Get the facts on Canadian charities.
   </description>
 
   <author href="http://teammatthewminer-clapp.herokuapp.com" email="doug@sherk.me">
