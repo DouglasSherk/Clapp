@@ -13,7 +13,7 @@ class Api::CharityController < Api::ApiController
     msg = {
         :status => :ok,
         :general => {
-          :name    => ident.legalname,
+          :name    => Ident.display_name(ident.legalname),
           :email   => ident.email,
           :website => ident.website
         },

@@ -5,10 +5,17 @@ class Ident < ActiveRecord::Base
     else
       where{legalname =~ "%#{name}%"}.limit(n+1)
     end).map! do |row|
-      if not row.legalname.nil? and /^[A-Z0-9_\/ -]+$/ =~ row.legalname and row.legalname.include? ' '
-        row.legalname = row.legalname.titleize
+      if not row.legalname.nil?
+        row.legalname = self.display_name(row.legalname)
       end
       row
+    end
+  end
+  def self.display_name(name)
+    if /^[A-Z0-9_\/ -]+$/ =~ name and name.include? ' '
+      name.titleize
+    else
+      name
     end
   end
 end
