@@ -1,21 +1,36 @@
 class Ident < ActiveRecord::Base
+  belongs_to :category
+  has_one :financials
+
   def self.search_by_name(name, n, start=nil)
-    (unless start.nil?
+    unless start.nil?
       where{(legalname =~ "%#{name}%") & (id >= start)}.limit(n+1)
     else
       where{legalname =~ "%#{name}%"}.limit(n+1)
-    end).map! do |row|
-      if not row.legalname.nil?
-        row.legalname = self.display_name(row.legalname)
-      end
-      row
     end
   end
-  def self.display_name(name)
-    if /^[A-Z0-9_\/ -]+$/ =~ name and name.include? ' '
-      name.titleize
+  def self.count_by_category(catid)
+    where{category == catid}.count()
+  end
+  def display_name
+    if /^[A-Z0-9_\/ -]+$/ =~ legalname and legalname.include? ' '
+      legalname.titleize
     else
-      name
+      legalname
     end
   end
+=begin
+  Designations:
+  A : Public Foundation
+  B : Private Foundation
+  C : Charitable Organization
+
+  Types:
+  A : Welfare
+  B : Health
+  C : Education
+  D : Religion
+  E : Benefits to the Community & Other
+  var catTypeTitle = {" ": "All", "A": "Welfare", "B": "Health", "C": "Education","D": "Religion", "E": "Benefits to the Community & Other"};
+=end
 end
