@@ -2,15 +2,17 @@
   <%= render :partial => "templates/charitynav", :locals => {:tab => "news"} %>
 
   <div class="content">
-    <ul class="table-view" ng-if="charityData && charityData.news">
+    <ul class="table-view" ng-if="charityData && charityData.news.length">
       <li class="table-view-cell" ng-repeat="item in charityData.news">
         <a class="push-right" href="{{ item.url }}">{{ item.title }}</a>
       </li>
     </ul>
 
-    <p ng-if="charityData && !charityData.news">
-      No news.
-    </p>
+    <div class="content-padded" ng-if="charityData && !charityData.news.length">
+      <p>
+        No news.
+      </p>
+    </div>
 
     <%= render :partial => "templates/charityloading" %>
   </div>
