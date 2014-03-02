@@ -8,14 +8,26 @@
     }
   </style>
   <div class="content">
-    <ul class="table-view">
-      <li class="table-view-cell">Total Assets <span class="pull-right">${{ charityData.financial.total_assets }}</span></li>
-      <li class="table-view-cell">Total Expenditures <span class="pull-right">${{ charityData.financial.total_expenditures }}</span></li>
-      <li class="table-view-cell">Total Liabilities <span class="pull-right">${{ charityData.financial.total_liabilities }}</span></li>
-      <li class="table-view-cell">Total Revenue <span class="pull-right">${{ charityData.financial.total_revenue }}</span></li>
+    <ul class="table-view" ng-if="charityData">
+        <li class="table-view-cell" ng-if="charityData.financial.total_assets">
+        Total Assets
+        <span class="pull-right">{{ charityData.financial.total_assets | currency }}</span>
+      </li>
+      <li class="table-view-cell" ng-if="charityData.financial.total_expenditures">
+        Total Expenditures
+        <span class="pull-right">{{ charityData.financial.total_expenditures | currency }}</span>
+      </li>
+      <li class="table-view-cell" ng-if="charityData.financial.total_liabilities">
+        Total Liabilities
+        <span class="pull-right">{{ charityData.financial.total_liabilities | currency }}</span>
+      </li>
+      <li class="table-view-cell" ng-if="charityData.financial.total_revenue">
+        Total Revenue
+        <span class="pull-right">{{ charityData.financial.total_revenue | currency }}</span>
+      </li>
     </ul>
 
-    <div class="content-padded" ng-if="charityData">
+    <div class="content-padded" ng-if="charityData && charityData.chart_url">
       <img ng-src="{{ charityData.chart_url }}" alt="Financials Breakdown" width="100%" />
     </div>
 

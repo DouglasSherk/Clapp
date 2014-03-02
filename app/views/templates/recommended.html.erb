@@ -1,7 +1,9 @@
 <div ng-controller="RecommendedCtrl">
-  <div class="content-padded">
-    <p class="text-muted">This is a small set of charities that we recommend due
-    to their efficiency and popularity.</p>
+  <div class="content" style="padding-top: 50px;">
+    <p class="content-padded text-muted">
+      This is a small set of charities that we recommend due to their efficiency and popularity.
+    </p>
+
+    <%= render :partial => "templates/charities" %>
   </div>
-  <%= render :partial => "templates/charities" %>
 </div>
