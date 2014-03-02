@@ -34,6 +34,62 @@
       <img ng-src="{{ charityData.chart_url }}" alt="Financials Breakdown" width="100%" />
     </div>
 
+    <h2>Compensation Info</h2>
+    <h3>Statistics</h3>
+    <ul class="table-view" ng-if="charityData">
+      <li class="table-view-cell">
+        Average salary of full-time employee
+        <span class="pull-right">{{ charityData.average_compensation | currency }}</span>
+      </li>
+      <li class="table-view-cell">
+        Number of full-time employees
+        <span class="pull-right">{{ charityData.financial.compensation.total_full_time_positions | number }}</span>
+      </li>
+      <li class="table-view-cell">
+        Number of part-time employees
+        <span class="pull-right">{{ charityData.financial.compensation.total_part_time_positions | number }}</span>
+      </li>
+    </ul>
+    <h3>Compensation of top 10 highest-paid employees</h3>
+    <ul class="table-view" ng-if="charityData">
+      <li class="table-view-cell" ng-if="charityData.financial.compensation.top10.pay_1_to_39999">
+        $1 - $39,999
+        <span class="pull-right">{{ charityData.financial.compensation.top10.pay_1_to_39999 }}</span>
+      </li>
+      <li class="table-view-cell" ng-if="charityData.financial.compensation.top10.pay_40000_to_79999">
+        $40,000 - $79,999
+        <span class="pull-right">{{ charityData.financial.compensation.top10.pay_40000_to_79999 }}</span>
+      </li>
+      <li class="table-view-cell" ng-if="charityData.financial.compensation.top10.pay_80000_to_119999">
+        $80,000 - $119,999
+        <span class="pull-right">{{ charityData.financial.compensation.top10.pay_80000_to_119999 }}</span>
+      </li>
+      <li class="table-view-cell" ng-if="charityData.financial.compensation.top10.pay_120000_to_159999">
+        $120,000 - $159,999
+        <span class="pull-right">{{ charityData.financial.compensation.top10.pay_120000_to_159999 }}</span>
+      </li>
+      <li class="table-view-cell" ng-if="charityData.financial.compensation.top10.pay_160000_to_199999">
+        $160,000 - $199,999
+        <span class="pull-right">{{ charityData.financial.compensation.top10.pay_160000_to_199999 }}</span>
+      </li>
+      <li class="table-view-cell" ng-if="charityData.financial.compensation.top10.pay_200000_to_249999">
+        $200,000 - $249,999
+        <span class="pull-right">{{ charityData.financial.compensation.top10.pay_200000_to_249999 }}</span>
+      </li>
+      <li class="table-view-cell" ng-if="charityData.financial.compensation.top10.pay_250000_to_299999">
+        $250,000 - $299,999
+        <span class="pull-right">{{ charityData.financial.compensation.top10.pay_250000_to_299999 }}</span>
+      </li>
+      <li class="table-view-cell" ng-if="charityData.financial.compensation.top10.pay_300000_to_349999">
+        $300,000 - $349,999
+        <span class="pull-right">{{ charityData.financial.compensation.top10.pay_300000_to_349999 }}</span>
+      </li>
+      <li class="table-view-cell" ng-if="charityData.financial.compensation.top10.pay_350000_or_more">
+        $350,000+
+        <span class="pull-right">{{ charityData.financial.compensation.top10.pay_350000_or_more }}</span>
+      </li>
+    </ul>
+
     <%= render :partial => "templates/charityloading" %>
   </div>
 </div>
