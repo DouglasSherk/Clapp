@@ -16,7 +16,7 @@ class Api::CharityController < Api::ApiController
     chart = GChart.pie :data   => chart_data,
                        :legend => chart_labels
 
-    name = Ident.display_name(ident.legalname)
+    name = ident.display_name
     response = Net::HTTP.get_response(URI('http://ajax.googleapis.com/ajax/services/search/news?v=1.0&ned=ca&rsz=5&q=' + URI.escape(name)))
     response_parsed = JSON.parse(response.body)
 
@@ -66,7 +66,7 @@ class Api::CharityController < Api::ApiController
           :name          => category.catlabel,
           :size          => category.number_of_charities,
           :total_revenue => category.total_revenue
-        }
+        },
         :news => news_results
     }
     render :json => msg
