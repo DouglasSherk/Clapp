@@ -6,7 +6,7 @@ require 'fileutils'
 class Zipper
   def self.zip(dir, zip_dir)
     Zip::File.open(zip_dir, Zip::File::CREATE) do |zipfile|
-      Find.find(dir) do |path|
+      Find.find(dir.to_s) do |path|
         Find.prune if File.basename(path)[0] == ?.
         dest = /#{dir}\/(\w.*)/.match(path.to_s)
           # Skip files if they exists
