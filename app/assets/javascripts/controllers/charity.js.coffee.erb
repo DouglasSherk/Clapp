@@ -43,17 +43,31 @@ App.controller 'CharityCtrl', ['$scope', '$location', '$timeout', '$http', '$rou
 App.directive('rating', () ->
   return {
     restrict: 'E',
-    template: '<span ng-repeat="star in stars_filled" class="icon icon-star-filled"></span>' +
-              '<span ng-repeat="star in stars_unfilled" class="icon icon-star"></span>',
+    template: '<span ng-repeat="star in stars_filled" class="icon icon-star-filled" ng-click="lower($index)"></span>' +
+              '<span ng-repeat="star in stars_unfilled" class="icon icon-star" ng-click="higher($index)"></span>',
     
     link: ($scope, elem, attrs) -> 
-      $scope.stars_filled = [];
-      for i in [1..$scope.ratingValue] 
-        $scope.stars_filled.push({});
-      
-      $scope.stars_unfilled = [];
-      for i in [1..(5-$scope.ratingValue)]
-        $scope.stars_unfilled.push({});
+
+      updateStars = () ->
+        $scope.stars_filled = [];
+        for i in [1..$scope.ratingValue] 
+          $scope.stars_filled.push({});
+        $scope.stars_unfilled = [];
+
+        if $scope.ratingValue < 5
+          for i in [1..(5-$scope.ratingValue)]
+            $scope.stars_unfilled.push({});
+
+      $scope.$watch('ratingValue', (oldVal, newVal) ->
+        if newVal
+          updateStars();
+      );
+
+      $scope.lower = (index) ->
+        $scope.ratingValue = index + 1;
+
+      $scope.higher = (index) ->
+        $scope.ratingValue += index + 1;
     
   }
 );
