@@ -17,16 +17,4 @@ App.controller 'HomeCtrl', ['$scope', '$location', '$timeout', '$http', \
        ).error((data, status, headers, config) ->
        )
 
-
-  $http.get('<%= angularApiPath(api_charity_get_chart_path) %>', {
-    params: {
-      data: {
-        values: [1, 2],
-        labels: ["test","test1"]
-      }
-    },
-  }).success((data, status, headers, config) ->
-     $scope.chart_url = data.chart_url
-   ).error((data, status, headers, config) ->
-   )
 ]
