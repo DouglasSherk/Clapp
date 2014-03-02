@@ -3,7 +3,7 @@ Clapp::Application.routes.draw do
 
   scope :templates do
     get '' => 'home#index', :as => 'templates'
-    get 'category' => 'home#index', :as => 'category'
+    get 'categories' => 'home#index', :as => 'categories'
     get 'recommended' => 'home#index', :as => 'recommended'
     get 'settings' => 'home#index', :as => 'settings'
     get 'category/:id' => 'home#index', :as => 'category'
