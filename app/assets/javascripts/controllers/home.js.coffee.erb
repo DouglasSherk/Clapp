@@ -7,7 +7,7 @@ App.controller 'HomeCtrl', ['$scope', '$location', '$timeout', '$http', \
   $scope.results = []
 
   $scope.$watch 'search', ->
-    if $scope.search.length > 2
+    if $scope.search?.length > 2
       $http.get('<%= angularApiPath(api_charity_search_path) %>', {
         params: {
           q: $scope.search,
