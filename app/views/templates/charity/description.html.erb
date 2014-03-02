@@ -5,7 +5,6 @@
     <div class="content-padded" ng-if="charityData && hasGeneralInfo()">
       <a ng-if="charityData.general.website" class="btn btn-block btn-outlined" ng-href="{{ websiteURL(charityData.general.website) }}">Visit Website</a>
       <a ng-if="charityData.general.email" class="btn btn-block btn-outlined" ng-href="mailto:{{ charityData.general.email }}">Send Email</a>
-      <%= fa_icon "spin spinner" %>
     </div>
 
     <p class="content-padded" ng-if="charityData && !hasGeneralInfo()" style="text-align: center;">

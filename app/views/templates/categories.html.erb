@@ -1,7 +1,7 @@
 <div class="content" ng-controller="CategoryCtrl">
   <ul class="table-view" ng-if="categories">
     <li class="table-view-cell" ng-repeat="category in categories">
-      <%= link_to '{{ category[1] }}', '#/category/{{ category[0] }}' %>
+      <%= link_to '{{ category[1] }}', '#/category/{{ category[0] }}', class: 'push-right' %>
     </li>
   </ul>
 </div>

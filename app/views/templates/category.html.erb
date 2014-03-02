@@ -1,1 +1,22 @@
-<%= render :partial => "templates/search", :locals => {:category_filter => true} %>
+<div ng-controller="HomeCtrl">
+  <input type="hidden" ng-model="filter" ng-init="filter=true" />
+
+  <div class="bar bar-nav bar-header-secondary">
+    <a class="btn btn-link btn-nav pull-left" href="/#categories">
+      <span class="icon icon-left-nav"></span>
+      Back
+    </a>
+
+    <h1 class="title">Hello</h1>
+  </div>
+
+  <div class="content">
+    <div class="content-padded">
+      <form>
+        <input type="search" placeholder="Find a charity" ng-model="search" />
+      </form>
+    </div>
+
+    <%= render :partial => "templates/charities" %>
+  </div>
+</div>
