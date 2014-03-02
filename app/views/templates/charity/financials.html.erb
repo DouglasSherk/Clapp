@@ -8,8 +8,11 @@
     }
   </style>
   <div class="content">
+    <div class="content-padded">
+      <p>{{ charityData.general.name }}</p>
+    </div>
     <ul class="table-view" ng-if="charityData">
-        <li class="table-view-cell" ng-if="charityData.financial.total_assets">
+      <li class="table-view-cell" ng-if="charityData.financial.total_assets">
         Total Assets
         <span class="pull-right">{{ charityData.financial.total_assets | currency }}</span>
       </li>
