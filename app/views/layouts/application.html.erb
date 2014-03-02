@@ -40,19 +40,19 @@
 </head>
 <body>
   <nav class="bar bar-tab">
-    <a href="/" class="tab-item">
+    <a href="#/" class="tab-item" ng-class='{"active": tab("/")}'>
       <span class="icon icon-search"></span>
       <span class="tab-label">Find</span>
     </a>
-    <a href="/causes" class="tab-item">
+    <a href="#/causes" class="tab-item" ng-class='{"active": tab("/causes")}'>
       <span class="icon icon-person"></span>
       <span class="tab-label">Causes</span>
     </a>
-    <a href="/recommended" class="tab-item">
+    <a href="#/recommended" class="tab-item" ng-class='{"active": tab("/recommended")}'>
       <span class="icon icon-star-filled"></span>
       <span class="tab-label">Recommended</span>
     </a>
-    <a href="/settings" class="tab-item">
+    <a href="#/settings" class="tab-item" ng-class='{"active": tab("/settings")}'>
       <span class="icon icon-gear"></span>
       <span class="tab-label">Settings</span>
     </a>
