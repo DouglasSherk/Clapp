@@ -17,7 +17,7 @@ class Api::CharityController < Api::ApiController
       return render :json => { :status => :notfound }
     end
 
-    category     = Category.find_by(ident.category)
+    category     = Category.find_by catid:ident.category
     donee        = Donee.find_by bn2:bn
     financials   = Financials.find_by bn:bn
     compensation = CompensationInfo.find_by bn:bn
@@ -27,28 +27,33 @@ class Api::CharityController < Api::ApiController
     rev_federal = financials.f4540||0
     rev_provincial = financials.f4550||0
     rev_municipal = financials.f4560||0
+    exp_total = financials.f5100||0
+    exp_charity = financials.f5000||0
     exp_admin = financials.f5010||0
     exp_fundraising = financials.f5020||0
-    exp_total = financials.f5100||0
+    exp_political = financials.f5030||0
+    exp_other = financials.f5040 || (exp_total - (exp_charity+exp_admin+exp_fundraising+exp_political))
     donations = financials.f4630||0 / 1000000  #donee.totalgifts
     contributions = rev_taxrcpt + rev_notaxrcpt + rev_fundraising
     govt_revenue  = rev_federal + rev_provincial + rev_municipal
     functional_cost_allocation = (exp_admin + exp_fundraising) / exp_total
     fundraising_efficiency = contributions / exp_fundraising
     high_salaries =
-      (compensation.f320||0) + (compensation.f325||0) + (compensation.f330||0) +
+      (compensation.f325||0) + (compensation.f330||0) +
       (compensation.f335||0) + (compensation.f340||0) + (compensation.f345||0)
     very_high_salaries = (compensation.f340||0) + (compensation.f345||0)
     quality_score =
       (functional_cost_allocation < 0.045 ? 1 : 0) +
+      (functional_cost_allocation < 0.025 ? 1 : 0) +
       (fundraising_efficiency.nil? || fundraising_efficiency > 1 ? 1 : 0) +
+      (fundraising_efficiency.nil? || fundraising_efficiency > 3 ? 1 : 0) +
       (high_salaries == 0 ? 1 : 0) +
       (very_high_salaries == 0 ? 1 : 0) +
       1
-    letter_grade = ("F".ord - quality_score).chr
+    letter_grade = ("F".ord - [quality_score,5].min).chr
    
     # Financial breakdown chart
-    chart_data   = [financials.f5000.to_i, financials.f5010.to_i, financials.f5020.to_i, financials.f5030.to_i, financials.f5040.to_i]
+    chart_data   = [exp_charity, exp_admin, exp_fundraising, exp_political, exp_other]
     chart_labels = ["Charitable Programs", "Mngmt./Admin.", "Fundraising", "Political Activity", "Other"]
     chart = GChart.pie :data   => chart_data,
                        :legend => chart_labels
@@ -96,6 +101,7 @@ class Api::CharityController < Api::ApiController
             :management_or_admin => financials.f5010,
             :fundraising         => financials.f5020,
             :political           => financials.f5030,
+            :other               => exp_other
           },
           :compensation => {
             :total_full_time_positions => compensation.f300,

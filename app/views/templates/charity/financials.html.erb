@@ -8,10 +8,12 @@
     }
   </style>
   <div class="content">
-    <div class="content-padded">
-      <p>{{ charityData.general.name }}</p>
-    </div>
+    <h2 class="content-padded">{{ charityData.general.name }}</h2>
     <ul class="table-view" ng-if="charityData">
+      <li class="table-view-cell" ng-if="charityData.financial.total_assets">
+        <strong>CharityCheck Score™</strong>
+        <strong class="pull-right">{{ charityData.letter_grade }}</strong>
+      </li>
       <li class="table-view-cell" ng-if="charityData.financial.total_assets">
         Total Assets
         <span class="pull-right">{{ charityData.financial.total_assets | currency }}</span>
@@ -34,8 +36,8 @@
       <img ng-src="{{ charityData.chart_url }}" alt="Financials Breakdown" width="100%" />
     </div>
 
-    <h2>Compensation Info</h2>
-    <h3>Statistics</h3>
+    <h2 class="content-padded">Compensation Info</h2>
+    <h3 class="content-padded">Statistics</h3>
     <ul class="table-view" ng-if="charityData">
       <li class="table-view-cell">
         Average salary of full-time employee
@@ -50,7 +52,7 @@
         <span class="pull-right">{{ charityData.financial.compensation.total_part_time_positions | number }}</span>
       </li>
     </ul>
-    <h3>Compensation of top 10 highest-paid employees</h3>
+    <h3 class="content-padded">Compensation of top 10 highest-paid employees</h3>
     <ul class="table-view" ng-if="charityData">
       <li class="table-view-cell" ng-if="charityData.financial.compensation.top10.pay_1_to_39999">
         $1 - $39,999

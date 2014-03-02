@@ -16,7 +16,7 @@ class Ident < ActiveRecord::Base
     end
   end
   def clean(str)
-    str.tr('Йй','Éé')
+    str.tr('Йй','éé')
   end
   def display_name
     res = accountname
