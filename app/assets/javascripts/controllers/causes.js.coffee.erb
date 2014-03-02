@@ -1,0 +1,11 @@
+<% environment.context_class.instance_eval { include ActionView::Helpers } %>
+<% environment.context_class.instance_eval { include HostHelper } %>
+<% environment.context_class.instance_eval { include Rails.application.routes.url_helpers } %>
+
+App.controller 'CategoryCtrl', ['$scope', '$location', '$timeout', '$http', \
+                                ($scope, $location, $timeout, $http) ->
+  $http.get('<%= angularApiPath(api_charity_categories_path) %> ')
+    .success((data, status, headers, config) ->
+      $scope.categories = data
+    )
+]
