@@ -2,15 +2,20 @@
 <% environment.context_class.instance_eval { include HostHelper } %>
 <% environment.context_class.instance_eval { include Rails.application.routes.url_helpers } %>
 
-App.controller 'HomeCtrl', ['$scope', '$location', '$timeout', '$http', \
-                            ($scope, $location, $timeout, $http) ->
+App.controller 'HomeCtrl', ['$scope', '$location', '$timeout', '$http', '$routeParams', \
+                            ($scope, $location, $timeout, $http, $routeParams) ->
   $scope.results = []
 
   $scope.$watch 'search', ->
     if $scope.search?.length > 2
+      filter = null
+      if $scope.filter
+        filter = $routeParams.id
+
       $http.get('<%= angularApiPath(api_charity_search_path) %>', {
         params: {
           q: $scope.search,
+          filter: filter,
         },
       }).success((data, status, headers, config) ->
          $scope.results = data.results

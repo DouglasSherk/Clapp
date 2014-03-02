@@ -2,12 +2,11 @@ class Ident < ActiveRecord::Base
   belongs_to :category
   has_one :financials, :foreign_key => :bn, :primary_key => :bn
 
-  def self.search_by_name(name, n, start=nil)
-    unless start.nil?
-      where{(legalname =~ "%#{name}%") & (id >= start)}.limit(n+1)
-    else
-      where{legalname =~ "%#{name}%"}.limit(n+1)
-    end
+  def self.search_by_name(name, n, start=nil, cat=nil)
+    results = where{legalname =~ "%#{name}%"}
+    results = results.where{id >= start} unless start.nil?
+    results = results.where{category == cat} unless cat.nil?
+    results.limit(n+1)
   end
   def self.search_by_category(in_category, n, start=nil)
     unless start.nil?

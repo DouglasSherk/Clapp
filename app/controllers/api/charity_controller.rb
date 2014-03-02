@@ -99,8 +99,9 @@ class Api::CharityController < Api::ApiController
     q     = params[:q]
     start = params[:start]
     n     = (params[:count] || 5).to_i
+    category = params[:filter]
 
-    res = Ident.search_by_name(q, n, start)
+    res = Ident.search_by_name(q, n, start, category)
     rows = res[0,n].map do |r|
       { :bn => r.bn, :name => r.display_name, :city => r.display_city }
     end
