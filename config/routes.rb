@@ -6,6 +6,7 @@ Clapp::Application.routes.draw do
     get 'causes' => 'home#index', :as => 'causes'
     get 'recommended' => 'home#index', :as => 'recommended'
     get 'settings' => 'home#index', :as => 'settings'
+    get 'charity/:id' => 'home#index', :as => 'charity'
   end
 
   scope :api do
