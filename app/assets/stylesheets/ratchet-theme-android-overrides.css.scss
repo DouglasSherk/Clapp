@@ -1,4 +1,9 @@
 body {
+  .bar-tab ~ .content {
+    padding-top: 50px;
+    padding-bottom: 0;
+  }
+
   .table-view .table-view-cell:last-child {
     border-bottom: 0;
   }

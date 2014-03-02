@@ -48,7 +48,7 @@ class Api::CharityController < Api::ApiController
     }
     render :json => msg
   end
-  
+
   def search
     q     = params[:q]
     start = params[:start]
@@ -56,6 +56,18 @@ class Api::CharityController < Api::ApiController
 
     res = Ident.search_by_name(q, n, start)
     msg = { :status => :ok, :results => res[0,n], :next => res[n] ? res[n]["id"] : nil }
+    render :json => msg
+  end
+
+  def chart
+    input = JSON.parse params[:data]
+    data  = input['values']
+    labels = input['labels']
+
+    chart  = GChart.pie :data   => data,
+                        :legend => labels
+
+    msg = { :chart_url => chart.to_url }
     render :json => msg
   end
 end

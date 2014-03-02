@@ -3,15 +3,17 @@ Clapp::Application.routes.draw do
 
   scope :templates do
     get '' => 'home#index', :as => 'templates'
+    get 'causes' => 'home#index', :as => 'causes'
+    get 'recommended' => 'home#index', :as => 'recommended'
+    get 'settings' => 'home#index', :as => 'settings'
   end
 
   scope :api do
     scope :charity do
       get 'search' => 'api/charity#search', :as => 'api_charity_search'
       get ':bn'    => 'api/charity#show',   :as => 'api_charity_show'
+      get 'get_chart' => 'api/charity#chart', :as => 'api_charity_get_chart'
     end
-
-    get 'get_chart' => 'api#get_chart', :as => 'api_get_chart'
   end
 
   root 'home#index'

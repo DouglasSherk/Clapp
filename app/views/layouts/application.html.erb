@@ -34,20 +34,29 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <link rel="apple-touch-icon-precomposed" sizes="114x114" href="touch-icons/apple-touch-icon-114x114.png">
-  <link rel="apple-touch-icon-precomposed" sizes="72x72" href="touch-icons/apple-touch-icon-72x72.png">
-  <link rel="apple-touch-icon-precomposed" sizes="57x57" href="touch-icons/apple-touch-icon-57x57.png">
+  <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon-precomposed" sizes="57x57" href="images/apple-touch-icon-57x57.png">
 </head>
 <body>
-  <header class="bar bar-nav">
-    <a class="btn pull-left">
-      <%= fa_icon "bars" %>
-    </a>
-    <a class="btn pull-right">
-      Right
-    </a>
-    <h1 class="title">Clapp</h1>
-  </header>
+  <nav class="bar bar-tab">
+    <%= link_to root_path.hash_path, :class => "tab-item active" do %>
+      <span class="icon icon-search"></span>
+      <span class="tab-label">Find</span>
+    <% end %>
+    <%= link_to causes_path.hash_path, :class => "tab-item" do %>
+      <span class="icon icon-person"></span>
+      <span class="tab-label">Causes</span>
+    <% end %>
+    <%= link_to recommended_path.hash_path, :class => "tab-item" do %>
+      <span class="icon icon-star-filled"></span>
+      <span class="tab-label">Recommended</span>
+    <% end %>
+    <%= link_to settings_path.hash_path, :class => "tab-item" do %>
+      <span class="icon icon-gear"></span>
+      <span class="tab-label">Settings</span>
+    <% end %>
+  </nav>
 
   <div class="content">
 <!--
