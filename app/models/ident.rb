@@ -3,10 +3,10 @@ class Ident < ActiveRecord::Base
   has_one :financials, :foreign_key => :bn, :primary_key => :bn
 
   def self.search_by_name(name, n, start=nil, cat=nil)
-    results = where{legalname =~ "%#{name}%"}
+    results = where{legalname =~ "%#{name}%"}.joins(:financials)
     results = results.where{id >= start} unless start.nil?
     results = results.where{category == cat} unless cat.nil?
-    results.limit(n+1)
+    results.limit(n+1).order('f4700 DESC')
   end
   def self.search_by_category(in_category, n, start=nil)
     unless start.nil?
@@ -16,7 +16,7 @@ class Ident < ActiveRecord::Base
     end
   end
   def clean(str)
-    str.tr('Й','é')
+    str.tr('Йй','Éé')
   end
   def display_name
     res = accountname
