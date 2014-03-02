@@ -25,12 +25,14 @@ class Api::CharityController < Api::ApiController
     donee        = Donee.find_by bn2:bn
     financials   = Financials.find_by bn:bn
     compensation = CompensationInfo.find_by bn:bn
-
+   
+    # Financial breakdown chart
     chart_data   = [financials.f5000.to_i, financials.f5010.to_i, financials.f5020.to_i, financials.f5030.to_i, financials.f5040.to_i]
     chart_labels = ["Charitable Programs", "Mngmt./Admin.", "Fundraising", "Political Activity", "Other"]
     chart = GChart.pie :data   => chart_data,
                        :legend => chart_labels
-
+    
+    # News
     name = ident.display_name
     response = Net::HTTP.get_response(URI('http://ajax.googleapis.com/ajax/services/search/news?v=1.0&ned=ca&rsz=5&q=' + URI.escape(name)))
     response_parsed = JSON.parse(response.body)
