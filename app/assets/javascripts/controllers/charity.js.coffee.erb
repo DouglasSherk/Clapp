@@ -27,5 +27,12 @@ App.controller 'CharityCtrl', ['$scope', '$location', '$timeout', '$http', '$rou
   $scope.hasGeneralInfo = ->
     return $scope.charityData.general.website or $scope.charityData.general.email
 
+  $scope.websiteURL = (website) ->
+    # Prepend http:// if the website URL doesn't yet contain it.
+    if website.indexOf('http') == -1
+      website = "http://#{website}"
+
+    return website
+
   $scope.setCharityData()
 ]
