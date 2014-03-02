@@ -21,7 +21,31 @@ class Api::CharityController < Api::ApiController
     donee        = Donee.find_by bn2:bn
     financials   = Financials.find_by bn:bn
     compensation = CompensationInfo.find_by bn:bn
-    donations = financials.f4630 / 1000000  #donee.totalgifts
+    rev_taxrcpt = financials.f4500||0
+    rev_notaxrcpt = financials.f4530||0
+    rev_fundraising = financials.f4630||0
+    rev_federal = financials.f4540||0
+    rev_provincial = financials.f4550||0
+    rev_municipal = financials.f4560||0
+    exp_admin = financials.f5010||0
+    exp_fundraising = financials.f5020||0
+    exp_total = financials.f5100||0
+    donations = financials.f4630||0 / 1000000  #donee.totalgifts
+    contributions = rev_taxrcpt + rev_notaxrcpt + rev_fundraising
+    govt_revenue  = rev_federal + rev_provincial + rev_municipal
+    functional_cost_allocation = (exp_admin + exp_fundraising) / exp_total
+    fundraising_efficiency = contributions / exp_fundraising
+    high_salaries =
+      (compensation.f320||0) + (compensation.f325||0) + (compensation.f330||0) +
+      (compensation.f335||0) + (compensation.f340||0) + (compensation.f345||0)
+    very_high_salaries = (compensation.f340||0) + (compensation.f345||0)
+    quality_score =
+      (functional_cost_allocation < 0.045 ? 1 : 0) +
+      (fundraising_efficiency.nil? || fundraising_efficiency > 1 ? 1 : 0) +
+      (high_salaries == 0 ? 1 : 0) +
+      (very_high_salaries == 0 ? 1 : 0) +
+      1
+    letter_grade = ("F".ord - quality_score).chr
    
     # Financial breakdown chart
     chart_data   = [financials.f5000.to_i, financials.f5010.to_i, financials.f5020.to_i, financials.f5030.to_i, financials.f5040.to_i]
@@ -48,6 +72,7 @@ class Api::CharityController < Api::ApiController
         :status => :ok,
         :bn => bn,
         :summary   => :willnotimplement,
+        :letter_grade => letter_grade,
         :donations => donations,  # in millions of dollars
         :average_compensation => (compensation.f390 - compensation.f380) / compensation.f300,
         :general => {
@@ -61,12 +86,16 @@ class Api::CharityController < Api::ApiController
           :issued_tax_receipts => financials.f4490 == 'Y',
           :total_revenue       => financials.f4700,
           :total_expenditures  => financials.f5100,
+          :ratios => {
+            :functional_cost_allocation => functional_cost_allocation,
+            :fundraising_efficiency => fundraising_efficiency
+          },
           :expenditures => {
             :professional_fees   => financials.f4860,
             :charitable_programs => financials.f5000,
             :management_or_admin => financials.f5010,
             :fundraising         => financials.f5020,
-            :political           => financials.f5030
+            :political           => financials.f5030,
           },
           :compensation => {
             :total_full_time_positions => compensation.f300,
