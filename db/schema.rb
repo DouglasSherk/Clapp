@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140302040131) do
+ActiveRecord::Schema.define(version: 20140302185528) do
 
   create_table "categories", force: true do |t|
     t.integer "catid"
@@ -206,6 +206,7 @@ ActiveRecord::Schema.define(version: 20140302040131) do
     t.string  "phone"
     t.string  "email"
     t.string  "website"
+    t.decimal "average_rating"
   end
 
 end
