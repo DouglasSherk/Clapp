@@ -16,5 +16,6 @@ App.config ['$routeProvider', ($routeProvider) ->
 App.run ['$rootScope', '$location', \
          ($rootScope, $location) ->
   $rootScope.tab = (path) ->
-    return $location.path() == path
+    $location.path() == path ||
+    $location.path().contains('/category') && path == '/categories'
 ]
