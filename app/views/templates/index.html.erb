@@ -1,6 +1,11 @@
 <div ng-controller="HomeCtrl">
-  <form>
-    <input type="search" placeholder="Find a charity" ng-model="search">
-  </form>
-  <%= render :partial => "templates/charities" %>
+  <div class="bar bar-standard bar-header-secondary">
+    <form>
+      <input type="search" placeholder="Find a charity" ng-model="search" />
+    </form>
+  </div>
+
+  <div class="content">
+    <%= render :partial => "templates/charities" %>
+  </div>
 </div>

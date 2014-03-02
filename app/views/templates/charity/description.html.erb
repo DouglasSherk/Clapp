@@ -1,25 +1,13 @@
-<div class="card" ng-controller="CharityCtrl">
-  <div class="segmented-control">
-    <a class="control-item" href="#/charity/{{ bn }}/financials">
-      Financials
-    </a>
-    <a class="control-item active" href="#/charity/{{ bn }}/description">
-      Description
-    </a>
-    <a class="control-item" href="#/charity/{{ bn }}/news">
-      News
-    </a>
+<div ng-controller="CharityCtrl">
+  <%= render :partial => "templates/charitynav", :locals => {:tab => "description"} %>
+
+  <div class="content">
+    <div class="content-padded" ng-if="charityData">
+      <p ng-if="charityData.general.website">
+        <a href="{{ charityData.general.website }}">Website</a>
+      </p>
+    </div>
+
+    <%= render :partial => "templates/charityloading" %>
   </div>
-
-  <div ng-if="charityData">
-    <p ng-if="charityData.general.website">
-      <a href="{{ charityData.general.website }}">Website</a>
-    </p>
-  </div>
-
-  <p ng-if="!charityData">
-    <!-- TODO: display spinner -->
-    Loading charity data.
-  </p>
-
 </div>
