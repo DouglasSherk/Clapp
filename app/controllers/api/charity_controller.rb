@@ -36,8 +36,16 @@ class Api::CharityController < Api::ApiController
     donations = financials.f4630||0 / 1000000  #donee.totalgifts
     contributions = rev_taxrcpt + rev_notaxrcpt + rev_fundraising
     govt_revenue  = rev_federal + rev_provincial + rev_municipal
-    functional_cost_allocation = (exp_admin + exp_fundraising) / exp_total
-    fundraising_efficiency = contributions / exp_fundraising
+    if exp_total == 0
+      functional_cost_allocation = (exp_admin + exp_fundraising)
+    else
+      functional_cost_allocation = (exp_admin + exp_fundraising) / exp_total
+    end
+    if exp_fundraising == 0
+      fundraising_efficiency = contributions
+    else
+      fundraising_efficiency = contributions / exp_fundraising
+    end
     high_salaries =
       (compensation.f325||0) + (compensation.f330||0) +
       (compensation.f335||0) + (compensation.f340||0) + (compensation.f345||0)
@@ -73,13 +81,25 @@ class Api::CharityController < Api::ApiController
       news_results << item.slice('title', 'url')
     end
 
+    if compensation.f390 == nil
+      compensation.f390 = 0
+    end
+    
+    if compensation.f380 == nil
+      compensation.f380 = 0
+    end
+
+    if compensation.f300 == nil
+      compensation.f300 = 1
+    end
+
     msg = {
         :status => :ok,
         :bn => bn,
         :summary   => :willnotimplement,
         :letter_grade => letter_grade,
         :donations => donations,  # in millions of dollars
-        :average_compensation => (compensation.f390 - compensation.f380) / compensation.f300,
+        :average_compensation => (compensation.f390||0 - compensation.f380||0) / compensation.f300||1,
         :general => {
           :name     => ident.display_name,
           :email    => ident.email,
