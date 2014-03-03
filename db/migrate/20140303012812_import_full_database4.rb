@@ -1,3 +1,5 @@
+require 'csv'
+
 class ImportFullDatabase4 < ActiveRecord::Migration
   def up
     counter = 0
